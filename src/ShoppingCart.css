@@ -1,0 +1,28 @@
+.cart {
+    position: relative;
+    width: 37px;
+    height: 48px;
+}
+
+.cart__icon {
+    position: absolute;
+    top: 9px;
+    width: 37px;
+    height: 27px;
+    background-image: url('https://images-na.ssl-images-amazon.com/images/G/01/gno/sprites/new-nav-sprite-global-2x_blueheaven-account._CB658093420_.png');
+    background-size: 275px;
+    background-position: -10px -240px;
+    background-repeat: no-repeat;
+}
+
+.cart__count {
+    position: absolute;
+    top: 9px;
+    left: 8px;
+    width: 28px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 0.625rem;
+    color: #f90;
+    text-align: center;
+}
