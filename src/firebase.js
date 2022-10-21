@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -23,3 +23,8 @@ const db = getFirestore();
 connectFirestoreEmulator(db, "localhost", 8080);
 
 export { db, auth };
+
+export const signIn = async (email, password) => {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential;
+};
