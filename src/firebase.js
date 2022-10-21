@@ -1,6 +1,6 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCQ-6Fvv6mescQcecS-6ppd7Cvu18DbAY0",
@@ -12,9 +12,14 @@ const firebaseConfig = {
     measurementId: "G-EB9FSV3CHG"
   };
 
-  const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
 
-  const db = firebaseApp.firestore();
-  const auth = firebase.auth();
+// uncomment this to use real firestore
+// const db = getFirestore(firebaseApp);
 
-  export { db, auth };
+// use firestore emulator instead of real one
+const db = getFirestore();
+connectFirestoreEmulator(db, "localhost", 8080);
+
+export { db, auth };
