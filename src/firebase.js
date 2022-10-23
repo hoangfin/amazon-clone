@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    signOut as logOut,
+    createUserWithEmailAndPassword
+} from "firebase/auth";
+
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -24,7 +31,20 @@ connectFirestoreEmulator(db, "localhost", 8080);
 
 export { db, auth };
 
-export const signIn = async (email, password) => {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+export const signInWithEmail = async (email, password) => {
+    const userCredential = await signInWithEmailAndPassword(
+        auth, email, password
+    );
+    return userCredential;
+};
+
+export const signOut = async () => {
+    await logOut(auth);
+};
+
+export const registerWithEmail = async (email, password) => {
+    const userCredential = await createUserWithEmailAndPassword(
+        auth, email, password
+    );
     return userCredential;
 };
