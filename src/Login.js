@@ -6,7 +6,7 @@ import styles from "./login.module.css";
 
 function Login() {
 
-    const [currentUser, setCurrentUser] = useCurrentUser();
+    const currentUser= useCurrentUser();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
