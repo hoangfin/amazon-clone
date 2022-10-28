@@ -39,7 +39,7 @@ function QuantitySelect({ value = 1, limit = 9, onChange }) {
             onChange(quantity);
         }
         isInitialRender.current = false;
-    }, [quantity]);
+    }, [quantity, onChange]);
 
     return (
         <div ref={root} className={styles.root}>
