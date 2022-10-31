@@ -1,47 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Button from './Button';
 import CurrencyFormat from './CurrencyFormat';
-import './Product.css';
-import Select from './Select';
-import { useStateValue } from './StateProvider';
+import styles from './product.module.css';
+import QuantitySelect from './components/QuantitySelect';
+import ProductImage from './components/ProductImage';
+import { Rating } from '@mui/material';
+import { addToShoppingCart } from './store';
 
-function Product({ id, title, image, price, rating }) {
+function Product(product) {
 
-    const [{ basket }, dispatch] = useStateValue();
-    const [quantity, setQuantity] = useState(1);
-    const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10+'];
+    const quantityRef = useRef(product.quantity || 1);
 
-    const addToBasket = () => {
-        dispatch({
-            type: "ADD_TO_BASKET",
-            item: { id, title, image, quantity, price, rating }
-        });
-    }
+    const updateQuantity = quantity => quantityRef.current = quantity;
 
     return (
-        <div className='product'>
-            <div className='product__image-container'>
-                <img src={image} alt='' />
-            </div>
+        <div className={styles.container}>
+            <ProductImage src={product.image} alt="" />
 
-            <div className='product__info'>
+            <div className={styles.info}>
                 <div>
-                    <p className='product__title'>{title}</p>
+                    <p className={styles.title}>{product.title}</p>
 
-                    <div className='product__rating'>
-                        <span className={`icon icon-star-small-${rating}`}></span>
-                    </div>
+                    <Rating readOnly value={product.rating} precision={0.1} size="small" />
 
-                    <CurrencyFormat price={price} />
+                    <CurrencyFormat price={product.price} />
+
+                    <QuantitySelect value={quantityRef.current} onChange={updateQuantity} />
                 </div>
 
-                <Select options={options} onChange={selectedOption => setQuantity(parseInt(selectedOption))} />
-
-                <Button onClick={addToBasket}>Add to Cart</Button>
+                <Button onClick={e => addToShoppingCart({...product, quantity: quantityRef.current})}>
+                    Add to Cart
+                </Button>
             </div>
-
         </div>
-    )
+    );
 }
 
 export default Product;

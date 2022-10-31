@@ -8,8 +8,9 @@
 }
 
 body {
-  background-color: rgb(234, 237, 237);
+  background-color: rgb(255, 255, 255);
   margin: 0;
+  padding: 0;
   font: 0.875rem/20px "Amazon Ember", Arial, sans-serif;
 }
 
@@ -21,27 +22,18 @@ a {
   text-decoration: none;
 }
 
+button {
+    all: unset;
+    cursor: pointer;
+}
+
 .icon {
   display: inline-block;
 }
 
-.icon-star-small-4 {
-  height: 1.125rem;
-  width: 5rem;
-  background: url('https://m.media-amazon.com/images/S/sash/ZNt8quAxIfEMMky.png') no-repeat -2px -21px;
-  background-size: 512px 512px;
-}
+ul { list-style: none; }
 
-.icon-star-small-4\.5 {
-  height: 1.125rem;
-  width: 5rem;
-  background: url('https://m.media-amazon.com/images/S/sash/ZNt8quAxIfEMMky.png') no-repeat -2px -41px;
-  background-size: 512px 512px;
-}
-
-.icon-star-small-5 {
-  height: 1.125rem;
-  width: 5rem;
-  background: url('https://m.media-amazon.com/images/S/sash/ZNt8quAxIfEMMky.png') no-repeat -2px -1px;
-  background-size: 512px 512px;
+ul, li {
+    margin: 0;
+    padding: 0;
 }

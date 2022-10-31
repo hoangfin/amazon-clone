@@ -1,60 +1,49 @@
-import './App.css';
 import Header from "./Header.js";
 import Home from "./Home.js";
-import Checkout from "./Checkout.js";
+import Checkout from "./pages/Checkout";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from './Login';
-import { useEffect } from 'react';
-import { auth } from './firebase';
+import Login from './pages/Login';
+import { useEffect, useRef } from 'react';
+import { auth, addProduct } from './firebase';
 import { useStateValue } from './StateProvider';
 import Payment from './Payment';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import Orders from './Orders';
+import { setCurrentUser, useShoppingCart } from './store';
 
 const promise = loadStripe('pk_test_51LBxovAczuSx9NaantjDoChzPMfN9Xz4FsZjpRwmVwnuIDUIVFxiFOMyD066RxmhkGitDNaFZLLSxYLNmMtEzm3b005rgUhRoI');
-console.log("loadStripe invoked");
 
 function App() {
 
-  const [{ basket, user }, dispatch ] = useStateValue();
+    const shoppingCart = useShoppingCart();
 
-  // Will only run once when the app component loads...
-  useEffect(() => {
-      auth.onAuthStateChanged(authUser => {
+    useEffect(() => {
+        auth.onAuthStateChanged(authUser => {
+            authUser
+                ? setCurrentUser(authUser)
+                : setCurrentUser(null);
+        });
+    }, []);
 
-        if (authUser) { // user has just logged in
-          dispatch({
-            type: 'SET_USER',
-            user: authUser
-          });
-        } else {  // user has just logged out
-          dispatch({
-            type: 'SET_USER',
-            user: null
-          });
-        }
+    useEffect(() => {
+      sessionStorage.setItem("shopping-cart", JSON.stringify(shoppingCart));
+    }, [shoppingCart]);
 
-      });
-  }, []);
-
-  useEffect(() => {
-    sessionStorage.setItem("basket", JSON.stringify(basket));
-  }, [basket]);
-
-  return (
-    <Router>
-      <div className="app">
-        <Routes>
-          <Route path="/" element={<><Header /><Home /></>} />
-          <Route path="/orders" element={<><Header /><Orders/></>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/checkout" element={<><Header /><Checkout /></>} />
-          <Route path='/payment' element={<><Header /><Elements stripe={promise}><Payment /></Elements></>} />
-        </Routes>
-      </div>
-    </Router>
-  );
+    return (
+        <Router>
+            <div className="app">
+                <button onClick={addProduct}>Add Product</button>
+                <Routes>
+                    <Route path="/" element={<><Header /><Home /></>} />
+                    {/* <Route path="/orders" element={<><Header /><Orders /></>} /> */}
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/checkout" element={<><Header /><Checkout /></>} />
+                    {/* <Route path='/payment' element={<><Header /><Elements stripe={promise}><Payment /></Elements></>} /> */}
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;

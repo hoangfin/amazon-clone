@@ -1,17 +1,19 @@
 import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-import { useStateValue } from './StateProvider';
-import { auth } from './firebase';
+import { signOut } from './firebase';
 import ShoppingCart from './ShoppingCart';
 import SearchForm from './SearchForm';
+import { useCurrentUser } from './store';
 
 function Header() {
-    const [{ basket, user }, dispatch] = useStateValue();
+    const currentUser = useCurrentUser();
+
+    console.log("Header component is rendered");
 
     const handleAuthentication = () => {
-        if (user) {
-            auth.signOut();
+        if (currentUser) {
+            signOut();
         }
     };
 
@@ -27,18 +29,18 @@ function Header() {
             </div>
 
             <div className='header__logobar-right'>
-                <Link to={!user && '/login'}>
+                <Link to={!currentUser && '/login'}>
                     <div onClick={handleAuthentication} className='header__option'>
-                        <span className='header__option-line-1'>Hello, {user ? user.email : 'Sign in'}</span>
+                        <span className='header__option-line-1'>Hello, {currentUser ? currentUser.email : 'Sign in'}</span>
                         <span className='header__option-line-2'>Account &#38; Lists</span>
                     </div>
                     <div onClick={handleAuthentication} className='header__signin'>
-                        {user ? user.email : 'Sign in >'}
+                        {currentUser ? currentUser.email : 'Sign in >'}
                         <span className='header__account-icon'></span>
                     </div>
                 </Link>
 
-                <Link to={user ? '/orders' : '/login'} className='header__option'>
+                <Link to={currentUser ? '/orders' : '/login'} className='header__option'>
                     <span className='header__option-line-1'>Returns</span>
                     <span className='header__option-line-2'>&#38; Orders</span>
                 </Link>

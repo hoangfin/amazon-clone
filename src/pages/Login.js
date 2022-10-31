@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmail, registerWithEmail } from "./firebase";
-import { useCurrentUser } from "./store";
+import { signInWithEmail, registerWithEmail } from "../firebase";
+import { useCurrentUser } from "../store";
 import styles from "./login.module.css";
 
 function Login() {

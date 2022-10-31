@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import './CheckoutProduct.css';
 import CurrencyFormat from './CurrencyFormat';
-import Select from './Select';
+import QuantitySelect from './components/QuantitySelect';
 import { useStateValue } from './StateProvider';
 
 function CheckoutProduct({ id, image, title, price, quantity }) {
@@ -43,7 +43,7 @@ function CheckoutProduct({ id, image, title, price, quantity }) {
                 </small>
                 <CurrencyFormat price={price} />
                 <div className='checkout-product__action'>
-                    <Select options={options} initSelectedOption={quantity} onChange={optionChangeHandler} />
+                    <QuantitySelect options={options} initSelectedOption={quantity} onChange={optionChangeHandler} />
                     |
                     <input type='submit' value='Delete' onClick={removeFromBasket} />
                     |

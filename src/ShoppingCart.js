@@ -1,16 +1,18 @@
 import React from 'react';
 import './ShoppingCart.css';
-import { useStateValue } from './StateProvider';
 import { getBasketQuantity } from './reducer';
+import { useShoppingCart } from './store';
 
 function ShoppingCart() {
 
-    const [{ basket, user }, dispatch] = useStateValue();
+    const shoppingCart = useShoppingCart();
+
+    console.log(shoppingCart);
 
     return (
         <div className='cart'>
             <span className='cart__icon'></span>
-            <span className='cart__count'>{getBasketQuantity(basket)}</span>
+            <span className='cart__count'>{getBasketQuantity(shoppingCart)}</span>
         </div>
     )
 }
