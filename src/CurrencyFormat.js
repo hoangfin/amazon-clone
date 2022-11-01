@@ -1,15 +1,15 @@
-import React from 'react';
-import './CurrencyFormat.css';
+import React from "react";
+import styles from "./currency-format.module.css";
 
 function CurrencyFormat({ price }) {
 
-    const [whole, fraction] = price?.toFixed(2).split('.');
+    const [whole, fraction] = (price / 100).toFixed(2).split(".");
 
     return (
-        <p className='currency-format'>
-            <span className='currency-format__symbol'>$</span>
-            <span className='currency-format__whole'>{whole}</span>
-            <span className='currency-format__fraction'>{fraction}</span>
+        <p className={styles.root}>
+            <span className={styles.symbol}>$</span>
+            <span className={styles.whole}>{whole}</span>
+            <span className={styles.fraction}>{fraction}</span>
         </p>
     )
 }

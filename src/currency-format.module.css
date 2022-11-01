@@ -1,21 +1,21 @@
-.currency-format {
+.root {
     margin-top: 0.6rem;
     font-weight: 400;
 }
 
-.currency-format__symbol {
+.symbol {
     position: relative;
     top: -0.6rem;
     color: #0F1111;
     font-size: 0.8125rem;;
 }
 
-.currency-format__whole {
+.whole {
     font-size: 1.75rem;
     color: #0F1111;
 }
 
-.currency-format__fraction {
+.fraction {
     position: relative;
     top: -0.6rem;
     font-size: 0.8125rem;
