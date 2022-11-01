@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmail, registerWithEmail } from "../firebase";
-import { useCurrentUser } from "../store";
+import { useAuthUser } from "../store";
 import styles from "./login.module.css";
 
 function Login() {
 
-    const currentUser= useCurrentUser();
+    const authUser= useAuthUser();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (currentUser) {
+        if (authUser) {
             navigate("/");
         }
-    }, [currentUser]);
+    }, [authUser]);
 
     const handleSignIn = e => {
         e.preventDefault();
