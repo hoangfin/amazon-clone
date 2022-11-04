@@ -35,9 +35,9 @@ function Login() {
         <div className={styles.root}>
             <div className={styles.container}>
                 <Link className={styles.logo} to="/">
-                    <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png"
-                    />
+                    <svg viewBox="0 0 602.280 181.499">
+                        <use xlinkHref="/sprites.svg#amazon-logo" />
+                    </svg>
                 </Link>
                 <form className={styles.form}>
                     <h1>Sign-in</h1>
