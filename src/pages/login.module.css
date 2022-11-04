@@ -18,9 +18,10 @@
     margin: 0 auto 20px auto;
 }
 
-.logo > img {
+.logo > svg {
     display: block;
     width: 100%;
+    color: rgb(0, 0, 0);
 }
 
 .form {
