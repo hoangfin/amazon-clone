@@ -3,38 +3,38 @@ import styles from "./select.module.css";
 
 function Select({ label, defaultValue, options, onChange }) {
 
-    const root = useRef(null);
     const [value, setValue] = useState(defaultValue || options[0]);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    useEffect(() => {
-        const rootRef = root.current;
-
-        const handleClick = e => {
-            e.preventDefault();
-
-            if (!rootRef.contains(e.target)) {
-                setIsMenuOpen(false);
-                return;
-            }
-
-            if (rootRef.querySelector("button").contains(e.target)) {
-                setIsMenuOpen(isOpen => !isOpen);
-                return;
-            }
-
-            if (rootRef.querySelector("ul")?.contains(e.target)) {
-                setValue(e.target.textContent);
-                setIsMenuOpen(false);
-            }
-        };
-
-        window.addEventListener("click", handleClick);
-
-        return () => {
+    const rootNode = useRef(null);
+    const setRootNode = useCallback(node => {
+        if (rootNode.current) {
             window.removeEventListener("click", handleClick);
         }
 
+        if (node) {
+            window.addEventListener("click", handleClick);
+        }
+
+        rootNode.current = node;
+    }, []);
+
+    const handleClick = useCallback(e => {
+        e.preventDefault();
+
+        if (!rootNode.current.contains(e.target)) {
+            setIsMenuOpen(false);
+            return;
+        }
+
+        if (rootNode.current.querySelector("button").contains(e.target)) {
+            setIsMenuOpen(isOpen => !isOpen);
+            return;
+        }
+
+        if (rootNode.current.querySelector("ul")?.contains(e.target)) {
+            setValue(e.target.textContent);
+            setIsMenuOpen(false);
+        }
     }, []);
 
     useEffect(() => {
@@ -44,7 +44,7 @@ function Select({ label, defaultValue, options, onChange }) {
     }, [value]);
 
     return (
-        <div ref={root} className={styles.root}>
+        <div ref={setRootNode} className={styles.root}>
             <button type="button" className={styles.select}>
                 {label && <span>{label}</span>}
                 <span>{value}</span>
