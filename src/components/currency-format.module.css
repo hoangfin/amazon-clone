@@ -1,18 +1,27 @@
 .root {
-    display: inline-block;
-    line-height: 0.76;
+    display: inline-flex;
+    justify-content: flex-start;
     color: rgb(15, 17, 17);
-    overflow: hidden;
 }
 
 .symbol {
+    display: inline-block;
+    height: 1em;
+    line-height: 1em;
     font-size: 1rem;
-    vertical-align: top;
 }
 
-.whole { font-size: 2.5rem; }
+.whole {
+    display: inline-block;
+    height: 0.8em;
+    line-height: 0.8em;
+    font-size: 2.5rem;
+    overflow: hidden;
+}
 
 .fraction {
+    display: inline-block;
+    height: 1em;
+    line-height: 1em;
     font-size: 1rem;
-    vertical-align: top;
 }
