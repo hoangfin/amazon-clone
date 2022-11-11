@@ -1,22 +1,18 @@
 .root {
-    margin-top: 0.6rem;
-    font-weight: 400;
+    display: inline-block;
+    line-height: 0.76;
+    color: rgb(15, 17, 17);
+    overflow: hidden;
 }
 
 .symbol {
-    position: relative;
-    top: -0.6rem;
-    color: #0F1111;
-    font-size: 0.8125rem;;
+    font-size: 1rem;
+    vertical-align: top;
 }
 
-.whole {
-    font-size: 1.75rem;
-    color: #0F1111;
-}
+.whole { font-size: 2.5rem; }
 
 .fraction {
-    position: relative;
-    top: -0.6rem;
-    font-size: 0.8125rem;
+    font-size: 1rem;
+    vertical-align: top;
 }
