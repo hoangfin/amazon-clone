@@ -1,11 +1,8 @@
 # Amazon Clone
 
 ## Project Folder Structure
-Structuring project can be a challenging task especially in React - an unopinionated framework.
+[How To Organize React Projects](https://youtu.be/UUga4-z7b6s?t=580)
 
-> Analysis paralysis (or paralysis by analysis) describes an individual or group process where overanalyzing or overthinking a situation can cause forward motion or decision-making to become "paralyzed", meaning that no solution or course of action is decided upon within a natural time frame
-
-Hello
 ## State Management Libs
 
 ### Authentication
