@@ -1,7 +1,7 @@
 import React from 'react';
 import './Order.css';
 import moment from 'moment';
-import CurrencyFormat from './CurrencyFormat';
+import CurrencyFormat from './components/CurrencyFormat';
 import OrderedProduct from './OrderedProduct';
 
 function Order({ order }) {

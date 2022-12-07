@@ -1,0 +1,10 @@
+.root {
+    padding: 20px 20px 15px 20px;
+    box-sizing: border-box;
+}
+
+.root > h1 {
+    /* font-weight: 400; */
+    font-size: 1.75rem;
+    /* line-height: 36px; */
+}

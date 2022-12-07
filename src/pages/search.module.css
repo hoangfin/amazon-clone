@@ -1,0 +1,11 @@
+.root {
+    width: 100vw;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* create stacking context for header element */
+.header {
+    position: relative;
+    z-index: 1;
+}

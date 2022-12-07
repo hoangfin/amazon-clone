@@ -1,14 +1,12 @@
-import React from "react";
 import styles from "./currency-format.module.css";
 
-function CurrencyFormat({ price, rootClassName }) {
+export function CurrencyFormat({ price, rootClassName }) {
 
     const [whole, fraction] = (price / 100).toFixed(2).split(".");
 
     return (
-        <p className={`${styles.root}${rootClassName
-            ?   (" " + rootClassName)
-            :   ""}`
+        <p className={`${styles.root}${
+            rootClassName ? (" " + rootClassName) : ""}`
         }>
             <span className={styles.symbol}>$</span>
             <span className={styles.whole}>{whole}</span>
@@ -16,5 +14,3 @@ function CurrencyFormat({ price, rootClassName }) {
         </p>
     )
 }
-
-export default CurrencyFormat;

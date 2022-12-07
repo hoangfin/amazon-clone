@@ -1,0 +1,9 @@
+.welcome {
+    display: inline-block;
+    max-width: 100px;
+    font-size: 0.75rem;
+    line-height: 1.1;
+    color: rgb(255, 255, 255);
+    /* text-align: justify; */
+    word-break: break-all;
+}

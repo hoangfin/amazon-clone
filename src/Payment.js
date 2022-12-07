@@ -1,21 +1,24 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from './axios';
 import React, { useEffect, useState } from 'react';
-import CurrencyFormat from './CurrencyFormat';
+import CurrencyFormat from './components/CurrencyFormat';
 import { Link, useNavigate } from 'react-router-dom';
 import CheckoutProduct from './CheckoutProduct';
 import './Payment.css';
-import { getBasketQuantity, getBasketTotal } from './reducer';
-import { useStateValue } from './StateProvider';
 import { db } from './firebase';
 import Button from './Button';
+import {
+    useAuthUser,
+    useShoppingCart,
+    getShoppingCartQuantity,
+    getShoppingCartSum
+} from './store';
 
 function Payment() {
 
-    const [{ basket, user }, dispatch] = useStateValue();
-
+    const authUser = useAuthUser();
+    const shoppingCart = useShoppingCart();
     const navigate = useNavigate();
-
     const stripe = useStripe();
     const elements = useElements();
 
@@ -30,13 +33,13 @@ function Payment() {
             const response = await axios({
                 method: 'post',
                 // Stripe only accepts cent as currency unit for input amount
-                url: `/payments/create?total=${parseInt(getBasketTotal(basket) * 100)}`
+                url: `/payments/create?total=${parseInt(getShoppingCartSum(shoppingCart) * 100)}`
             });
             setClientSecret(response.data.clientSecret);
         };
 
         getClientSecret();
-    }, [basket]);
+    }, [shoppingCart]);
 
     console.log('Client secret >>>> ', clientSecret);
 
@@ -51,12 +54,12 @@ function Payment() {
                 }
             });
             db
-              .collection("users")
-              .doc(user?.uid)
+              .collection("authUsers")
+              .doc(authUser?.uid)
               .collection("orders")
               .doc(payload.paymentIntent.id)
               .set({
-                  basket: basket,
+                  shoppingCart: shoppingCart,
                   amount: payload.paymentIntent.amount,
                   created: payload.paymentIntent.created
               });
@@ -64,9 +67,9 @@ function Payment() {
             setSucceeded(true);
             setError(null);
 
-            dispatch({
+            /* dispatch({
                 type: 'EMPTY_BASKET'
-            });
+            }); */
 
             navigate('/orders', { replace: true });
         } catch (error) {
@@ -87,7 +90,7 @@ function Payment() {
         <div className='payment'>
             <div className='payment__container'>
                 <h1>
-                    Checkout ({<Link to='/checkout'>{getBasketQuantity(basket)} items</Link>})
+                    Checkout ({<Link to='/checkout'>{getShoppingCartQuantity(shoppingCart)} items</Link>})
                 </h1>
 
                 <div className='payment__section'>
@@ -95,7 +98,7 @@ function Payment() {
                         <h3>Delivery Address</h3>
                     </div>
                     <div className='payment__address'>
-                        <p>{user?.email}</p>
+                        <p>{authUser?.email}</p>
                         <p>123 React Lane</p>
                         <p>Los Angeles, CA</p>
                     </div>
@@ -106,7 +109,7 @@ function Payment() {
                         <h3>Review items and delivery</h3>
                     </div>
                     <div className='payment__items'>
-                        {basket.map(item => (
+                        {shoppingCart.map(item => (
                             <CheckoutProduct
                                 key={item.id}
                                 id={item.id}
@@ -127,7 +130,7 @@ function Payment() {
                         <form onSubmit={handleSubmit}>
                             <CardElement onChange={handleChange} />
                             <div className='payment__priceContainer'>
-                                <h3>Order Total: <CurrencyFormat price={getBasketTotal(basket)} /></h3>
+                                <h3>Order Total: <CurrencyFormat price={getShoppingCartSum(shoppingCart)} /></h3>
                                 <Button disabled={processing || disabled || succeeded}>
                                     <span>{processing ? <p>Processing</p> : 'Buy Now'}</span>
                                 </Button>

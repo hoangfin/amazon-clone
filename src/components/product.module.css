@@ -1,0 +1,36 @@
+.root {
+    display: flex;
+    flex-wrap: wrap;
+    /* align-items: flex-start; */
+    box-sizing: border-box;
+}
+
+.root > * {
+    flex-grow: 1;
+    flex-basis: calc((375px - 100%) * 999);
+    box-sizing: border-box;
+}
+
+.root > a {
+    min-width: 40%;
+    min-height: 35%;
+}
+
+.product-image-root {
+    width: 100%;
+    height: 100%;
+}
+
+.info {
+    min-width: 60%;
+    min-height: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 6px;
+    padding: 8px;
+}
+
+.title {
+    font-size: 0.875rem;
+}

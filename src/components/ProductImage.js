@@ -1,6 +1,6 @@
 import styles from "./product-image.module.css";
 
-function ProductImage({ src, alt, rootClassName, imgClassName }) {
+export function ProductImage({ src, alt, rootClassName, imgClassName }) {
     return (
         <div
             className={
@@ -14,5 +14,3 @@ function ProductImage({ src, alt, rootClassName, imgClassName }) {
         </div>
     );
 }
-
-export default ProductImage;

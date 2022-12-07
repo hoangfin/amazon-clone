@@ -1,48 +1,35 @@
-import Header from "./Header.js";
-import Home from "./Home.js";
-import Checkout from "./pages/Checkout";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from './pages/Login';
-import { useEffect, useRef } from 'react';
-import { auth, addProduct } from './firebase';
-import { useStateValue } from './StateProvider';
-import Payment from './Payment';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-import Orders from './Orders';
-import { setCurrentUser, useShoppingCart } from './store';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { loadStripe } from "@stripe/stripe-js";
+import { AuthContext } from "features/auth";
+import { CartContext } from "features/cart";
+import { Home, Login, Search, Orders, Checkout } from "pages";
 
-const promise = loadStripe('pk_test_51LBxovAczuSx9NaantjDoChzPMfN9Xz4FsZjpRwmVwnuIDUIVFxiFOMyD066RxmhkGitDNaFZLLSxYLNmMtEzm3b005rgUhRoI');
+const promise = loadStripe(
+    "pk_test_51LBxovAczuSx9NaantjDoChzPMfN9Xz4FsZjpRwmVwnuIDUIVFxi" +
+    "FOMyD066RxmhkGitDNaFZLLSxYLNmMtEzm3b005rgUhRoI"
+);
 
 function App() {
 
-    const shoppingCart = useShoppingCart();
-
-    useEffect(() => {
-        auth.onAuthStateChanged(authUser => {
-            authUser
-                ? setCurrentUser(authUser)
-                : setCurrentUser(null);
-        });
-    }, []);
-
-    useEffect(() => {
-      sessionStorage.setItem("shopping-cart", JSON.stringify(shoppingCart));
-    }, [shoppingCart]);
-
     return (
-        <Router>
-            <div className="app">
-                <button onClick={addProduct}>Add Product</button>
+        <>
+            <AuthContext />
+            <CartContext
+                cartValue={JSON.parse(localStorage.getItem("cart")) || []}
+            />
+
+            <Router>
                 <Routes>
-                    <Route path="/" element={<><Header /><Home /></>} />
-                    {/* <Route path="/orders" element={<><Header /><Orders /></>} /> */}
+                    <Route path="/" element={<Home />} />
+                    <Route path="/search" element={<Search />} />
+                    <Route path="/orders" element={<Orders />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/checkout" element={<><Header /><Checkout /></>} />
-                    {/* <Route path='/payment' element={<><Header /><Elements stripe={promise}><Payment /></Elements></>} /> */}
+                    <Route path="/checkout" element={<Checkout />} />
+                    {/* <Route path="/payment" element={<><Header /><Elements stripe={promise}><Payment /></Elements></>} /> */}
                 </Routes>
-            </div>
-        </Router>
+
+            </Router>
+        </>
     );
 }
 

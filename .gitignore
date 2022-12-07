@@ -26,3 +26,10 @@ ui-debug.log
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+.vscode
+clone-8ce9f-firebase-adminsdk-fe85x-66fa0b5d7e.json
+data-feed.js
+products.json
+products.jsonl
+typesense-data-feed.js

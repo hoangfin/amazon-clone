@@ -1,0 +1,95 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.logo {
+    display: block;
+    width: 100px;
+    margin: 0 auto 20px auto;
+}
+
+.logo > svg {
+    display: block;
+    width: 100%;
+    color: rgb(0, 0, 0);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    padding: 20px 26px;
+    border: 1px solid lightgray;
+}
+
+.form > h1 {
+    font-weight: 400;
+    margin-bottom: 14px;
+}
+
+.form > label {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 19px;
+}
+
+.input {
+    height: 31px;
+    margin-bottom: 14px;
+    padding: 3px 7px;
+    outline: 0;
+    color: #111;
+    border: 1px solid #a6a6a6;
+    border-top-color: #949494;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5),0 1px 0 rgba(0,0,0,.07) inset;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    border-color: #e77600;
+    box-shadow: 0 0 3px 2px rgba(228,121,17,.5);
+}
+
+.form > button {
+    height: 29px;
+    margin-bottom: 14px;
+    padding: 0 6px;
+    font-size: 13px;
+    color: #111;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.4) inset;
+    box-sizing: border-box;
+}
+
+.button {
+    border-color: #a88734 #9c7e31 #846a29;
+    background: linear-gradient(to bottom,#f7dfa5,#f0c14b);
+}
+
+.button:hover {
+    background: linear-gradient(to bottom,#f5d78e,#eeb933);
+}
+
+.register-button {
+    border-color: #adb1b8 #a2a6ac #8d9096;;
+    background: linear-gradient(to bottom,#f7f8fa,#e7e9ec);
+}
+
+.register-button:hover {
+    background: linear-gradient(to bottom,#e7eaf0,#d9dce1);;
+}
+
+.form > p {
+    font-size: 12px;
+    line-height: 18px;
+    color: rgb(17, 17, 17);
+    text-align: center;
+}

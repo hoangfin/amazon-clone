@@ -1,5 +1,5 @@
 import React from 'react';
-import CurrencyFormat from './CurrencyFormat';
+import CurrencyFormat from './components/CurrencyFormat';
 import './OrderedProduct.css';
 
 function OrderedProduct({ id, image, title, price, quantity, isGift }) {

@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import './Orders.css';
-import { useStateValue } from './StateProvider';
 import { db } from './firebase';
 import Order from './Order';
+import { useAuthUser } from './store';
 
 function Orders() {
 
-    const [{ basket, user }, dispatch] = useStateValue();
+    const authUser = useAuthUser();
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        if (user) {
+        if (authUser) {
             db
-              .collection('users')
-              .doc(user?.uid)
+              .collection('authUsers')
+              .doc(authUser?.uid)
               .collection('orders')
               .orderBy('created', 'desc')
               .onSnapshot(snapshot => {
@@ -28,7 +28,7 @@ function Orders() {
         }
 
 
-    }, [user]);
+    }, [authUser]);
 
     return (
         <div className='orders'>

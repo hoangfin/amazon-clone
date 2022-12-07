@@ -1,0 +1,25 @@
+.root {
+    display: inline-block;
+    margin-top: 0.6rem;
+    /* width: 100%; */
+    /* line-height: 2.3rem; */
+    font-size: 1rem;
+    /* border: 0.1rem solid #FCD200; */
+    border: none;
+    color: #111;
+    cursor: pointer;
+    padding: 12px;
+    background: #FFD814;
+    border-radius: .8rem;
+    box-shadow: 0 .2rem .5rem 0 rgba(213,217,217,.5);
+}
+
+.root:hover {
+    background-color: #F2C200;
+}
+
+.root:disabled {
+    cursor: default;
+    background-color: rgba(19, 1, 1, 0.3);
+    color:  rgba(255, 255, 255, 0.3);
+}

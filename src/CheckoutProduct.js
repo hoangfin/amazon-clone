@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 import './CheckoutProduct.css';
-import CurrencyFormat from './CurrencyFormat';
-import QuantitySelect from './components/QuantitySelect';
-import { useStateValue } from './StateProvider';
+import CurrencyFormat from './components/CurrencyFormat';
+import Select from 'components';
+
+const selectOptions = Array.from({ length: 9 }, (_, i) => i + 1);
 
 function CheckoutProduct({ id, image, title, price, quantity }) {
 
-    const [{ basket }, dispatch] = useStateValue();
-    const options = ['0 (Delete)', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10+'];
+    /* const shoppingCart = useShoppingCart();
 
     const removeFromBasket = e => {
         dispatch({
@@ -16,11 +16,7 @@ function CheckoutProduct({ id, image, title, price, quantity }) {
         });
     };
 
-    const updateQuantity = e => dispatch({
-        type: 'UPDATE_QUANTITY',
-        id: id,
-        quantity: parseInt(e)
-    });
+    const updateQuantity = e => {};
 
     const optionChangeHandler = selectedOption => {
         if (selectedOption === '0 (Delete)') {
@@ -28,11 +24,12 @@ function CheckoutProduct({ id, image, title, price, quantity }) {
         } else {
             updateQuantity(selectedOption);
         }
-    };
+    }; */
 
     return (
         <div className='checkout-product'>
-            <div className='checkout-product__image-container'>
+
+            {/* <div className='checkout-product__image-container'>
                 <img src={image} />
             </div>
 
@@ -43,7 +40,12 @@ function CheckoutProduct({ id, image, title, price, quantity }) {
                 </small>
                 <CurrencyFormat price={price} />
                 <div className='checkout-product__action'>
-                    <QuantitySelect options={options} initSelectedOption={quantity} onChange={optionChangeHandler} />
+                    <Select
+                        label="Qty:"
+                        defaultValue={quantity}
+                        options={selectOptions}
+                        onChange={optionChangeHandler}
+                    />
                     |
                     <input type='submit' value='Delete' onClick={removeFromBasket} />
                     |
@@ -51,7 +53,7 @@ function CheckoutProduct({ id, image, title, price, quantity }) {
                     |
                     <input type='submit' value='Compare with similar items' />
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
