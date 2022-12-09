@@ -1,6 +1,10 @@
 # Amazon Clone
 
+
+
 ## Project Folder Structure
+This is entirely opinionated but this time I have decided to
+Embrace an advanced structure called group by feature.
 [How To Organize React Projects](https://youtu.be/UUga4-z7b6s?t=580)
 
 ## State Management Libs
