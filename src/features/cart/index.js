@@ -1,4 +1,5 @@
+export * from "./context";
 export * from "./components";
 export * from "./hooks";
 export * from "./utils";
-export { setCart } from "./context/cart";
+export { setCart, addProductToCart, removeCartItem, updateItemQuantity } from "./cart";

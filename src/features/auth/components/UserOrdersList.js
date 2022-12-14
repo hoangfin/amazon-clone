@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthUser } from "../hooks";
+import { useAuthContext } from "../hooks";
 
 export function UserOrdersList() {
 
-    const currentUser = useAuthUser();
+    const currentUser = useAuthContext();
     const orders = [];
     const navigate = useNavigate();
 

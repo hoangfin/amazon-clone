@@ -1,7 +1,7 @@
 import Header from "./commons/Header";
 import styles from "./home.module.css";
 
-function Home() {
+export const Home = () => {
 
     const bgImages = [
         "https://m.media-amazon.com/images/I/61jovjd+f9L._SX3000_.jpg",
@@ -17,6 +17,4 @@ function Home() {
 
         </div>
     )
-}
-
-export default Home;
+};

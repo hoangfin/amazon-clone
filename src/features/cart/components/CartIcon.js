@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
-import { useCart } from "../hooks";
+import { useCartContext } from "../hooks";
 import { getCartQuantity } from "../utils";
 import styles from "./cart-icon.module.css";
 
-export function CartIcon() {
+export const CartIcon = () => {
 
-    const cart = useCart();
-
-    // console.log(cart);
+    const cart = useCartContext();
 
     return (
         <Link to="/checkout" className={styles.root}>
@@ -17,4 +15,4 @@ export function CartIcon() {
             <span className={styles.quantity}>{getCartQuantity(cart)}</span>
         </Link>
     )
-}
+};

@@ -1,22 +1,22 @@
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import axios from './axios';
+/* import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import axios from '../axios';
 import React, { useEffect, useState } from 'react';
-import CurrencyFormat from './components/CurrencyFormat';
+import CurrencyFormat from '../components/CurrencyFormat';
 import { Link, useNavigate } from 'react-router-dom';
-import CheckoutProduct from './CheckoutProduct';
+import CheckoutProduct from '../CheckoutProduct';
 import './Payment.css';
 import { db } from './firebase';
-import Button from './Button';
+import Button from '../Button';
 import {
     useAuthUser,
     useShoppingCart,
     getShoppingCartQuantity,
     getShoppingCartSum
-} from './store';
+} from './store'; */
 
-function Payment() {
+export const Payment = () => {
 
-    const authUser = useAuthUser();
+    /* const authUser = useAuthUser();
     const shoppingCart = useShoppingCart();
     const navigate = useNavigate();
     const stripe = useStripe();
@@ -26,9 +26,9 @@ function Payment() {
     const [processing, setProcessing] = useState(false);
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(true);
-    const [clientSecret, setClientSecret] = useState(true);
+    const [clientSecret, setClientSecret] = useState(true); */
 
-    useEffect(() => {
+    /* useEffect(() => {
         const getClientSecret = async () => {
             const response = await axios({
                 method: 'post',
@@ -66,10 +66,6 @@ function Payment() {
 
             setSucceeded(true);
             setError(null);
-
-            /* dispatch({
-                type: 'EMPTY_BASKET'
-            }); */
 
             navigate('/orders', { replace: true });
         } catch (error) {
@@ -141,7 +137,5 @@ function Payment() {
 
             </div>
         </div>
-    )
-}
-
-export default Payment;
+    ) */
+};

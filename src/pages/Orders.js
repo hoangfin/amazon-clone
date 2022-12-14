@@ -3,7 +3,7 @@ import { CurrencyFormat } from "components";
 import { UserOrdersList } from "features/auth";
 import styles from "./orders.module.css";
 
-function Orders({ order }) {
+export const Orders = ({ order }) => {
 
     return (
         <div className="order">
@@ -18,6 +18,4 @@ function Orders({ order }) {
 
         </div>
     )
-}
-
-export default Orders;
+};

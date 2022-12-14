@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { AuthContext } from "features/auth";
 import { CartContext } from "features/cart";
-import { Home, Login, Search, Orders, Checkout } from "pages";
+import { Home, Login, Search, Orders, Checkout, Products, Payment } from "pages";
+import { Elements } from "@stripe/react-stripe-js";
 
 const promise = loadStripe(
     "pk_test_51LBxovAczuSx9NaantjDoChzPMfN9Xz4FsZjpRwmVwnuIDUIVFxi" +
@@ -22,10 +23,18 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/search" element={<Search />} />
+                    <Route path="/products/:id" element={<Products />} />
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/checkout" element={<Checkout />} />
-                    {/* <Route path="/payment" element={<><Header /><Elements stripe={promise}><Payment /></Elements></>} /> */}
+                    <Route
+                        path="/payment"
+                        element={
+                            <Elements stripe={promise}>
+                                <Payment />
+                            </Elements>
+                        }
+                    />
                 </Routes>
 
             </Router>

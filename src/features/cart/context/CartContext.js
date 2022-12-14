@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { setCart } from "./cart";
-import { useCart } from "../hooks";
+import { setCart } from "../cart";
+import { useCartContext } from "../hooks";
 
-export function CartContext({ cartValue }) {
+export const CartContext = ({ cartValue }) => {
 
-    const cart = useCart();
+    const cart = useCartContext();
 
     useEffect(() => {
         setCart(cartValue);
@@ -15,5 +15,5 @@ export function CartContext({ cartValue }) {
     }, [cart]);
 
     return null;
-
-}
+    
+};

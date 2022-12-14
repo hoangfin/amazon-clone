@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getCart, subscribe } from "../context/cart";
+import { getCart, subscribe } from "../cart";
 
-export function useCart() {
+export const useCartContext = () => {
     const [cart, setCart] = useState(() => getCart());
 
     useEffect(() => {
@@ -10,4 +10,4 @@ export function useCart() {
     }, []);
 
     return cart;
-}
+};

@@ -1,9 +1,18 @@
 import { useEffect, useState, useRef, forwardRef, useImperativeHandle } from "react";
 import styles from "./select.module.css";
 
-export const Select = forwardRef((props, fwdRef) => {
-
-    const [value, setValue] = useState(props.defaultValue);
+const ForwardRefSelect = (
+    {
+        defaultValue,
+        onChange,
+        options,
+        label,
+        className,
+        selectClassName
+    },
+    fwdRef
+) => {
+    const [value, setValue] = useState(defaultValue);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const isFirstRender = useRef(true);
     const selectRef = useRef(null);
@@ -52,7 +61,7 @@ export const Select = forwardRef((props, fwdRef) => {
             return;
         }
 
-        props.onChange && props.onChange(value);
+        onChange && onChange(value);
 
     }, [value]);
 
@@ -60,13 +69,13 @@ export const Select = forwardRef((props, fwdRef) => {
         <div
             ref={selectRef}
             className={
-                `${styles.root}${props.className ? " " + props.className : ""}`
+                `${styles.root}${className ? " " + className : ""}`
             }
         >
             <button
                 type="button"
-                className={`${styles.select}${props.selectClassName ? (" " + props.selectClassName) : ""}`}>
-                {props.label && <span>{props.label}</span>}
+                className={`${styles.select}${selectClassName ? (" " + selectClassName) : ""}`}>
+                {label && <span>{label}</span>}
                 <span>{value}</span>
                 <svg viewBox="0 0 24 24">
                     <use xlinkHref="/sprites.svg#expand-more" />
@@ -76,7 +85,7 @@ export const Select = forwardRef((props, fwdRef) => {
                 isMenuOpen &&
                 <ul className={styles.menu}>
                     {
-                        props.options.map(opt =>
+                        options.map(opt =>
                             <li key={opt}
                                 className={value.toString() === opt.toString()
                                     ? `${styles["menu-item"]} --active`
@@ -89,4 +98,6 @@ export const Select = forwardRef((props, fwdRef) => {
             }
         </div>
     )
-});
+};
+
+export const Select = forwardRef(ForwardRefSelect);

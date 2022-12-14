@@ -1,5 +1,7 @@
-export { default as Home } from "./Home";
-export { default as Login } from "./Login";
-export { default as Search } from "./Search";
-export { default as Checkout } from "./Checkout";
-export { default as Orders } from "./Orders";
+export * from "./Home";
+export * from "./Login";
+export * from "./Search";
+export * from "./Checkout";
+export * from "./Orders";
+export * from "./Products";
+export * from "./Payment";

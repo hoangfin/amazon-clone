@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { useAuthUser } from "../hooks";
+import { useAuthContext } from "../hooks";
 import styles from "./user-orders-link.module.css";
 
 export function UserOrdersLink() {
 
-    const currentUser = useAuthUser();
+    const currentUser = useAuthContext();
 
     return (
         <Link to={currentUser ? "/orders" : "/login"} className={styles.root}>

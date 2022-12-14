@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAuthUser, subscribe } from "../context/authUser";
 
-export function useAuthUser() {
+export function useAuthContext() {
     const [authUser, setAuthUser] = useState(() => getAuthUser());
 
     useEffect(() => {

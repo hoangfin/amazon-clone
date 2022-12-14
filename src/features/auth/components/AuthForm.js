@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthUser } from "../hooks";
+import { useAuthContext } from "../hooks";
 import { signIn, register } from "../services";
 import styles from "./auth-form.module.css";
 
 export function AuthForm({ rootClassName }) {
 
-    const currentUser = useAuthUser();
+    const currentUser = useAuthContext();
     const emailRef = useRef("");
     const passwordRef = useRef("");
     const navigate = useNavigate();

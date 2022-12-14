@@ -4,7 +4,6 @@ import { getProducts } from "services";
 import { useFetch } from "hooks";
 import styles from "./search-bar.module.css";
 import { SearchButton } from "./SearchButton";
-import { ProductImage } from "components/ProductImage";
 
 // declare list of categories here to avoid unnecessary recreation in case
 // ProductSearch gets rerendered
@@ -18,13 +17,10 @@ const categories = [
     "Toys & Games", "Women's Fashion"
 ];
 
-export function SearchBar({ onSearch }) {
-
-    const categoryRef = useRef("All");
+export const SearchBar = ({ onSearch }) => {
+    const categoryRef = useRef(null);
     const titleRef = useRef(null);
     const [products, isFetching, fetch] = useFetch(getProducts);
-
-    console.log(products);
 
     const handleClick = e => {
         e.preventDefault();
@@ -40,9 +36,6 @@ export function SearchBar({ onSearch }) {
 
     const search = useCallback(e => {
 
-        console.log(`category = ${categoryRef.current.value}`);
-        console.log(`title = ${titleRef.current.value}`);
-
         if (!titleRef.current.value) {
             return;
         }
@@ -50,6 +43,7 @@ export function SearchBar({ onSearch }) {
         const query = {
             q: titleRef.current.value,
             query_by: "title",
+            page: 1,
             per_page: 12
         };
 
@@ -81,17 +75,21 @@ export function SearchBar({ onSearch }) {
 
             <SearchButton className={styles["search-button"]} onClick={handleClick} />
 
-            { products &&
+            {
+                products &&
                 <ul className={styles.list}>
                     {products.map(product =>
                         <li key={product.id} className={styles["list-item"]}>
                             <div className={styles["image-container"]}>
-                                <ProductImage src={product.imageURLs[0]} />
+                                <img className={styles.image} src={product.imageURLs[0]} />
                             </div>
-                            <div dangerouslySetInnerHTML={{__html: product.highlights[0].snippet}}></div>
+                            <div className={styles.title}>
+                                <span dangerouslySetInnerHTML={{__html: product.highlights[0].snippet}}></span>
+                            </div>
                         </li>
                     )}
-                </ul>}
+                </ul>
+            }
         </div>
     )
-}
+};
