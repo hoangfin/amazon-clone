@@ -1,7 +1,11 @@
 # Amazon Clone
 
-- Full-text search for products
-- Shopping cart payment with credit card - for testing purpose only
+[Why We Memo All the Things](https://attardi.org/why-we-memo-all-the-things) @ [Coinbase](https://www.coinbase.com)
+
+- Full-Text Search
+- Stripe Payment Platform
+- Firebase Authentication
+- Cloud Firestore (NoSQL Cloud Database)
 
 ## Project Folder Structure
 This is entirely opinionated but this time I have decided to
