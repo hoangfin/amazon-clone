@@ -1,5 +1,6 @@
 # Amazon Clone
 
+👋 Get inspired by 
 ## Features
 - Full-Text Search
 - Stripe Payment Platform
