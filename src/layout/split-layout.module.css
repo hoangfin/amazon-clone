@@ -1,9 +1,0 @@
-.root {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.root > * {
-    flex: 1;
-}

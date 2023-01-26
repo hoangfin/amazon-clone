@@ -8,11 +8,9 @@ services:
       - 8108:8108
     environment:
       - TYPESENSE_DATA_DIR=/data
-      - TYPESENSE_API_KEY=xyz # default admin key
+      - TYPESENSE_API_KEY=Mx3ofRw7LrB9yE1RpEi2P3Kwv7ktzqDA
     volumes:
-      - type: volume
-        source: typesense-data
-        target: /data
+      - typesense-data:/data
 
 volumes:
   typesense-data:

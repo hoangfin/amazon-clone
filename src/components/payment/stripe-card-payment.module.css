@@ -1,0 +1,41 @@
+.root {
+    /* width: 350px; */
+    /* display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
+        0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07); */
+}
+
+.card {
+    margin-bottom: 8px;
+    padding: 8px;
+    /* outline: none; */
+    border-radius: 7px;
+    /* border-top-left-radius: 7px; */
+    border: 1px solid rgb(220, 235, 235);
+    background-color: rgb(255, 255, 255);
+}
+
+.error {
+    display: block;
+    margin: 8px 0;
+    color: red;
+}
+
+.smtbutton {
+    padding: 8px 10px;
+    border: 1px solid rgb(213, 217, 217);
+    border-radius: 0.5rem;
+    background-color: #FFD814;
+    box-shadow: 0 0.2rem 0.5rem 0 rgb(213 217 217 / 50%);
+}
+
+.smtbutton:hover:not([disabled]) {
+    background-color: #F2C200;
+}
+
+.smtbutton:disabled {
+    opacity: 0.7;
+    cursor: default;
+}

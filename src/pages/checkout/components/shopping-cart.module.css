@@ -1,0 +1,23 @@
+.root {
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+}
+
+.cart-title {
+    font-weight: 400;
+    font-size: 1.75rem;
+    line-height: 1.285;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgb(231, 231, 231);
+}
+
+.cart-list-item {
+    padding: 12px 0 12px 0;
+    border-bottom: 1px solid rgb(231, 231, 231);
+    box-sizing: border-box;
+}
+
+.cart-item {
+    width: 100%;
+}

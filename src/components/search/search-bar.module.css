@@ -1,0 +1,40 @@
+.root {
+    position: relative;
+    display: flex;
+    width: 200px;
+}
+
+.select {
+    border-radius: 4px 0 0 4px;
+}
+
+.input {
+    min-width: 0;
+    flex: 1;
+    padding: 10px;
+    font-size: 0.94rem;
+    border: none;
+    outline: 0;
+}
+
+.search-button { width: 45px; }
+
+.list {
+    position: absolute;
+    top: 100%; left: 0;
+    width: 100%;
+    /* border: 1px solid gray; */
+    background-color: rgb(255, 255, 255);
+}
+
+.list-item {
+    padding: 12px;
+    border-left: 1px solid rgb(231, 231, 231);
+    border-right: 1px solid rgb(231, 231, 231);
+}
+
+.title {
+    /* flex: 1;
+    display: flex;
+    align-items: center; */
+}
