@@ -1,0 +1,62 @@
+.root {
+    min-height: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 8px 12px;
+    border-bottom: 1px solid #232f3e;
+    background-color: #232f3e;
+    box-sizing: border-box;
+}
+
+.root > * {
+    flex: 1;
+    flex-basis: calc((700px - 100%) * 999);
+}
+
+.logo {
+    display: block;
+    max-width: 80px;
+}
+
+.logo > svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    color: rgb(255, 255, 255);
+}
+
+.actions-group {
+    max-width: 300px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.primary-text {
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.1;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+}
+
+.secondary-text {
+    display: block;
+    font-size: 0.75rem;
+    line-height: 1.1;
+    color: rgb(255, 255, 255);
+}
+
+.logo-bar > div {
+    flex: 1;
+}
+
+.menu-icon {
+    height: 32px;
+    color: rgb(255, 255, 255);
+}
+

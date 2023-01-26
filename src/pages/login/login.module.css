@@ -1,0 +1,11 @@
+.logo {
+    display: block;
+    width: 100px;
+    margin: 20px auto;
+}
+
+.logo > svg {
+    display: block;
+    width: 100%;
+    color: rgb(0, 0, 0);
+}

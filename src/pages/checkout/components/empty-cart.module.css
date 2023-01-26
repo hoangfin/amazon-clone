@@ -1,0 +1,21 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 450px;
+    margin: auto;
+}
+
+.root > img {
+    order: 1;
+    display: block;
+    width: 100%;
+}
+
+.root > h1 {
+    order: 2;
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #0F1111;
+    text-align: center;
+}

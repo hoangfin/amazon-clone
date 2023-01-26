@@ -26,10 +26,13 @@ ui-debug.log
 # firebase
 firebase-debug.log
 firestore-debug.log
+firestore-snapshot
 
 .vscode
 clone-8ce9f-firebase-adminsdk-fe85x-66fa0b5d7e.json
 data-feed.js
+amazon_laptops_tablets.json
+amazon_software.json
 products.json
 products.jsonl
 typesense-data-feed.js

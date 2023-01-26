@@ -1,0 +1,32 @@
+.root {
+    max-width: 1024px;
+    margin: auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgb(231, 237, 237);
+}
+
+.heading {
+    width: 150px;
+    line-height: 1.3;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.content {
+    flex: 1;
+}
+
+.review-list-item {
+    width: 100%;
+}

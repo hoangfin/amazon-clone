@@ -1,0 +1,43 @@
+.root {
+    min-width: 300px;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+}
+
+.header {
+    padding: 16px 24px;
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.message {
+    padding: 0 24px 20px 24px;
+}
+
+.footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.footer button {
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: inherit;
+    line-height: 1.75;
+    color: rgb(25, 118, 210);
+    padding: 6px 8px;
+    border-radius: 0 0 4px 4px;
+    border-top: 1px solid rgb(217, 220, 227);
+    background: none;
+}
+
+.footer button:last-of-type {
+    border-left: 1px solid rgb(217, 220, 227);;
+}
+
+.footer button:hover {
+    background-color: rgb(237 244 251);
+}

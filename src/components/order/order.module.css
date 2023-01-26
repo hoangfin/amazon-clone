@@ -1,0 +1,43 @@
+.header {
+    padding: 10px;
+    font-weight: 400;
+    color: rgb(128, 128, 128);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border: 1px solid rgb(221, 221, 221);
+    background-color: rgb(246, 246, 246);
+}
+
+.id {
+    word-break: break-all;
+}
+
+.list {
+    padding: 20px;
+    border-left: 1px solid rgb(221, 221, 221);
+    border-right: 1px solid rgb(221, 221, 221);
+}
+
+.li {
+    position: relative;
+    padding: 20px;
+}
+
+.li:nth-child(even)::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(123, 123, 123, 0.03);
+}
+
+.total {
+    padding: 20px;
+    font-size: 1.125rem;
+    line-height: 1.33;
+    text-align: right;
+    border: 1px solid rgb(221, 221, 221);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}

@@ -61,40 +61,45 @@ const ForwardRefSelect = (
             return;
         }
 
-        onChange && onChange(value);
+        if (onChange) {
+            onChange(value);
+        }
 
     }, [value]);
 
     return (
         <div
             ref={selectRef}
-            className={
-                `${styles.root}${className ? " " + className : ""}`
-            }
+            className={`${styles.root}${className ? " " + className : ""}`}
         >
             <button
                 type="button"
-                className={`${styles.select}${selectClassName ? (" " + selectClassName) : ""}`}>
-                {label && <span>{label}</span>}
-                <span>{value}</span>
+                className={`${styles.select}${selectClassName ? (" " + selectClassName) : ""}`}
+            >
+                <span>
+                    {label && <span>{label}&#160;&#160;</span>}
+                    <span>{value}</span>
+                </span>
+
                 <svg viewBox="0 0 24 24">
                     <use xlinkHref="/sprites.svg#expand-more" />
                 </svg>
             </button>
             {
-                isMenuOpen &&
-                <ul className={styles.menu}>
-                    {
-                        options.map(opt =>
-                            <li key={opt}
-                                className={value.toString() === opt.toString()
-                                    ? `${styles["menu-item"]} --active`
-                                    : styles["menu-item"]}>
-                                <span>{opt}</span>
-                            </li>
-                        )
-                    }
-                </ul>
+                isMenuOpen
+                ?   <ul className={styles.menu}>
+                        {
+                            options.map(opt =>
+                                <li key={opt}
+                                    className={value.toString() === opt.toString()
+                                        ? `${styles["menu-item"]} --active`
+                                        : styles["menu-item"]}>
+                                    <span>{opt}</span>
+                                </li>
+                            )
+                        }
+                    </ul>
+                :   null
             }
         </div>
     )

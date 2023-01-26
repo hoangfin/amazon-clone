@@ -10,7 +10,6 @@ export const ProductCard = ({
     const navigate = useNavigate();
 
     const handleClick = () => {
-        localStorage.setItem(product.id, JSON.stringify(product));
         navigate(`/products/${product.id}`);
     };
 

@@ -1,18 +1,21 @@
 # Amazon Clone
 
+👋 Get inspired by 
+
+## State Management
+Global variables + observer pattern + React custom hooks compose a lightweight yet powerful mechanism to manage states across application.
+This mechanism plays a main core in [State Pool](https://www.npmjs.com/package/state-pool) - a React state management lib
+
+- A centralized repository (or folder) where all application states live within is preferred. Having an overview of all application states and how they are dependent on each other is super helpful 
+
+## Features
+- Full-Text Search
+- Stripe Payment Platform
+- Firebase Authentication
+- Cloud Firestore (NoSQL Cloud Database)
+- Responsiveness without CSS media query
+
+## References
 
 
-## Project Folder Structure
-This is entirely opinionated but this time I have decided to
-Embrace an advanced structure called group by feature.
-[How To Organize React Projects](https://youtu.be/UUga4-z7b6s?t=580)
-
-## State Management Libs
-
-### Authentication
-`Firebase Authentication with Email/Password` is a solid approach since E-commerce sites only require customer's email run the business
-
-![firebase-auth](https://user-images.githubusercontent.com/7408505/199111368-14ac3ada-7302-4daa-ad91-2a3fcadc19eb.png)
-
-### Database
-Google Cloud Firestore (NoSQL document real-time database) is outstanding in terms of data handling and pricing model
+- Memoize everything - [Why We Memo All the Things](https://attardi.org/why-we-memo-all-the-things) @[Coinbase](https://www.coinbase.com)

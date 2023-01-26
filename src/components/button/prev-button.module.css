@@ -1,0 +1,12 @@
+.root {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    background: none;
+}
+
+.root > svg {
+    flex: 1 1 100%;
+}
