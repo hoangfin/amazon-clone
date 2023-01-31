@@ -2,17 +2,8 @@ import { Rating } from "@mui/material";
 import { CurrencyFormat } from "components";
 import { Card } from "components/card";
 import { memo } from "react";
+import { Link } from "react-router-dom";
 import style from "./search-results.module.css";
-
-const ImageMemoized = memo(props => <img {...props} />);
-
-const Content = memo(({ product }) =>
-    <>
-        <h3>{product.title}</h3>
-        <Rating readOnly value={product.rating} precision={0.1} size="small" />
-        <CurrencyFormat price={product.price} />
-    </>
-);
 
 const Component = ({ products }) => {
     if (!products?.length) {
@@ -24,9 +15,21 @@ const Component = ({ products }) => {
             {products?.map(product =>
                 <li className={style["list-item"]} key={product.id}>
                     <Card
-                        media={<ImageMemoized className={style["media-image"]} src={product.imageURLs[0]} />}
-                        content={<Content product={product} />}
+                        media={
+                            <Link to={`/products/${product.id}`}>
+                                <img className={style["media-image"]} src={product.imageURLs[0]} />
+                            </Link>
+                        }
+                        content={
+                            <Link className={style["content-link"]} to={`/products/${product.id}`}>
+                                <h3 className={style.title}>{product.title}</h3>
+                                <Rating readOnly value={product.rating} precision={0.1} size="small" />
+                                <CurrencyFormat price={product.price} />
+                            </Link>
+                        }
+                        mediaOverlayColor="silver"
                         mediaClassName={style.media}
+                        contentClassName={style.content}
                     />
                 </li>
             )}
