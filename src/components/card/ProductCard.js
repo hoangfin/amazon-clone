@@ -1,12 +1,10 @@
 import { Rating } from "@mui/material";
 import { CurrencyFormat } from "components";
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./product-card.module.css";
 
-export const ProductCard = ({
-    product,
-    className
-}) => {
+const Component = ({ product, className }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -46,3 +44,5 @@ export const ProductCard = ({
         </div>
     );
 };
+
+export const ProductCard = memo(Component);
