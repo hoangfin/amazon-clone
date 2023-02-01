@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { useParams } from "react-router-dom";
 import { Header } from "../commons";
-import { ProductInfo } from "./ProductInfo";
+import { ProductInfo } from "./components/ProductInfo";
 import style from "./product.module.css";
 
 const Component = () => {

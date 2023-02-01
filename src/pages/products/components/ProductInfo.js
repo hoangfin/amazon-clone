@@ -1,16 +1,17 @@
-import { memo, useCallback, useEffect, useState } from "react";
-import { ProductDetail } from "components";
+import { ProductCard } from "components/card";
 import { Modal } from "components/modal";
 import { Spinner } from "components/progress";
 import { useService } from "hooks";
+import { memo, useCallback, useEffect, useState } from "react";
 import { getProductByID as getProductByIDService } from "services/product";
+import style from "./product-info.module.css";
 
 const Component = ({ productID, className }) => {
     const [product, getProductByID, isFetching] = useService(getProductByIDService);
     const [error, setError] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    console.log(product);
 
-    const handleClose = useCallback(() => { setIsModalOpen(false); }, []);
+    const handleClose = useCallback(() => setError(null), []);
 
     useEffect(() => {
         if (productID) {
@@ -18,23 +19,19 @@ const Component = ({ productID, className }) => {
             getProductByID(productID)
                 .catch(err => {
                     setError(err.message);
-                    setIsModalOpen(true);
                 });
         }
     }, [productID]);
 
     return (
         <>
-            <ProductDetail
-                product={product}
-                className={className}
-            />
+            <ProductCard className={style.card} product={product} />
 
             <Modal isOpen={isFetching}>
                 <Spinner />
             </Modal>
 
-            <Modal isOpen={isModalOpen} onClose={handleClose}>
+            <Modal isOpen={error} onClose={handleClose}>
                 {error}
             </Modal>
         </>
