@@ -1,12 +1,10 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ClickableImage } from "components";
-import styles from "./thumbnail-carousel.module.css";
+import style from "./thumbnail-carousel.module.css";
 
 const Component = ({
     slides,
     thumbnailsPerView,
-    options,
     className
 }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -21,9 +19,9 @@ const Component = ({
     });
 
     const handleThumbnailClick = useCallback(index => {
-        if (emblaAPI && emblaThumbsAPI) {
-            emblaThumbsAPI.clickAllowed() && emblaAPI.scrollTo(index);
-        }
+        if (!(emblaAPI && emblaThumbsAPI)) return;
+        if (!emblaThumbsAPI.clickAllowed()) return;
+        emblaAPI.scrollTo(index);
     }, [emblaAPI, emblaThumbsAPI]);
 
     useEffect(() => {
@@ -43,38 +41,45 @@ const Component = ({
         }
     }, [selectedIndex, emblaThumbsAPI]);
 
-    return (
-        <div className={`${styles.root}${className ? " " + className : ""}`}>
-            <section>
-                <div ref={mainViewportRef} className={styles.viewport}>
-                    <div className={styles.slides}>
-                        {slides.map((slide, index) =>
-                            <div key={index} className={styles.slide}>
-                                <img src={slide} />
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </section>
+    if (!slides?.length) return null;
 
-            <section>
-                <div ref={thumbnailsViewportRef} className={styles.viewport}>
-                    <div className={`${styles.slides}${thumbnailsPerView ? " --thumbnails-per-view-" + thumbnailsPerView : ""
-                        }`}>
-                        {slides.map((slide, index) =>
-                            <div key={index} className={styles.slide}>
-                                <ClickableImage
-                                    className={`${styles.thumbnail}${
-                                        index === selectedIndex ? " --selected" : ""
-                                    }`}
-                                    imgSrc={slide}
-                                    onClick={() => handleThumbnailClick(index)}
-                                />
-                            </div>
-                        )}
-                    </div>
+    return (
+        <div className={`${style.root}${className ? " " + className : ""}`}>
+            <div ref={mainViewportRef} className={style.viewport}>
+                <div className={style["slides-container"]}>
+                    {slides.map((slide, index) =>
+                        <div key={index} className={style.slide}>
+                            <img src={slide} className={style["slide-image"]} />
+                        </div>
+                    )}
                 </div>
-            </section>
+            </div>
+
+            <div ref={thumbnailsViewportRef} className={style.viewport}>
+                <div
+                    className={
+                        style["slides-container"] +
+                        (thumbnailsPerView ? " --slides-per-view-" + thumbnailsPerView : "")
+                    }
+                >
+                    {slides.map((slide, index) =>
+                        <div
+                            key={index}
+                            className={
+                                style["thumbnail-slide"] +
+                                (index === selectedIndex ? " --selected" : "")
+                            }
+                        >
+                            <button
+                                className={style.thumbnail}
+                                onClick={() => handleThumbnailClick(index)}
+                            >
+                                <img src={slide} className={style["slide-image"]} />
+                            </button>
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
     );
 };
