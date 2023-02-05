@@ -5,5 +5,5 @@ export const useStore = (store) => {
 
     useEffect(() => store.subscribe(setValue), [store]);
 
-    return [value, store.set, store.update];
+    return [value];
 };
