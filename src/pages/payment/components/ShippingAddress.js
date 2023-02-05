@@ -1,12 +1,13 @@
-import { Button, ShippingForm } from "components";
-import { Modal } from "components/modal";
-import { useService } from "hooks";
 import { memo, useCallback, useEffect, useState } from "react";
+import { Button } from "components/button";
+import { ShippingForm } from "components";
+import { Modal } from "components/modal";
+import { useService, useStore } from "hooks";
 import { updateUser as updateUserService } from "services/user";
-import { useStore, userStore } from "stores";
+import { userStore } from "stores";
 
 const Component = ({ onError, onLoad }) => {
-    const [user, setUser] = useStore(userStore);
+    const [user] = useStore(userStore);
     const [, updateUser, isLoading] = useService(updateUserService);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,7 +25,7 @@ const Component = ({ onError, onLoad }) => {
         );
         updateUser(user.id, { shippingAddress: filteredData })
             .then(() => {
-                setUser();
+                userStore.set();
                 closeShippingForm();
             })
             .catch(onError);

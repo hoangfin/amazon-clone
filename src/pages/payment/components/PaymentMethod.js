@@ -1,14 +1,15 @@
-import { StripeCardPayment } from "components";
 import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { useStore } from "hooks";
+import { userStore, cartStore } from "stores";
+import { StripeCardPayment } from "components";
 import { createOrder } from "services/order";
 import { getPriceSum, getQuantitySum } from "utils";
 import styles from "./payment-method.module.css";
-import { useStore, userStore, cartStore } from "stores";
 
 const Component = ({ onError }) => {
     const [user] = useStore(userStore);
-    const [cart, setCart] = useStore(cartStore);
+    const [cart] = useStore(cartStore);
     const navigate = useNavigate();
 
     const handleSucceed = useCallback(
@@ -21,12 +22,12 @@ const Component = ({ onError }) => {
                 created
             })
                 .then(() => {
-                    setCart([]);
+                    cartStore.set([]);
                     navigate("/");
                 })
                 .catch(err => onError(err));
         },
-        [createOrder, user?.email, cart, setCart, navigate]
+        [createOrder, user?.email, cart, cartStore.set, navigate]
     );
 
     return (
