@@ -1,17 +1,17 @@
 import { memo } from "react";
-import { useStore, cartStore } from "stores";
-import emptyCartIcon from "./images/empty-cart.svg";
-import styles from "./empty-cart.module.css";
+import { useStore } from "hooks";
+import { cartStore } from "stores";
+import style from "./empty-cart.module.css";
 
 const Component = ({ className }) => {
-    const [cart] = useStore(cartStore);
+    const [items] = useStore(cartStore);
 
-    if (cart.length) return null;
+    if (items.length) return null;
 
     return (
-        <div className={`${styles.root}${className ? " " + className : ""}`}>
-            <h1>Your Amazon Cart is empty</h1>
-            <img src={emptyCartIcon} />
+        <div className={style.root + (className ? " " + className : "")}>
+            <h1 className={style.heading}>Your cart is empty</h1>
+            <img className={style.image} src="/empty-cart.svg" />
         </div>
     );
 };
