@@ -1,8 +1,9 @@
 import { memo, useCallback, useRef, useMemo } from "react";
+import { useStore } from "hooks";
 import { Button } from "components/button";
 import { Card } from "components/card";
 import { Select } from "components/select";
-import { cartStore, useStore } from "stores";
+import { cartStore } from "stores";
 import { remove, update } from "stores/cart";
 import style from "./cart-items.module.css";
 
