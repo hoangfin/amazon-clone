@@ -1,16 +1,19 @@
 import { memo } from "react";
-import styles from "./button.module.css";
+import { Spinner } from "components/progress";
+import style from "./button.module.css";
 
-const Component = (props) =>
+const Component = ({ disabledType, ...props }) =>
     <button
         {...props}
-        className={
-            `${styles.root}${props.className ? " " + props.className : ""}`
-        }
-        disabled={props.isProcessing || props.disabled}
+        className={style.root + (props.className ? " " + props.className : "")}
     >
-        {props.children}
+        <span>{props.children}</span>
+        {
+            (props.disabled && disabledType === "progress")
+                ? <Spinner className={style.spinner} />
+                : null
+        }
     </button>
-;
+    ;
 
 export const Button = memo(Component);

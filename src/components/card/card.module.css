@@ -1,0 +1,32 @@
+.root {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.media,
+.content {
+    flex: 1;
+    flex-basis: calc((480px - 100%) * 999);
+}
+
+.media {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    min-width: 0;
+}
+
+.media::after {
+    content: "";
+    position: absolute;
+    top: 0; right: 0;
+    bottom: 0; left: 0;
+    pointer-events: none;
+}
+
+.media:global(.--overlay-silver)::after {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+.content { min-width: 70%; }

@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { useStore, cartStore } from "stores";
+import { useStore } from "hooks";
+import { cartStore } from "stores";
 import { getQuantitySum } from "utils";
 import style from "./cart-nav.module.css";
 

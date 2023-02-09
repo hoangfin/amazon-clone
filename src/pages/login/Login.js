@@ -1,6 +1,7 @@
 import { memo, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useStore, userStore } from "stores";
+import { useStore } from "hooks";
+import { userStore } from "stores";
 import { AuthForm } from "./components";
 import style from "./login.module.css";
 

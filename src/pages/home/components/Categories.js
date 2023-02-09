@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { SimpleCard } from "components";
+import { SimpleCard } from "components/card";
 import styles from "./categories.module.css";
 
 const cards = [

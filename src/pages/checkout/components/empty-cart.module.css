@@ -6,13 +6,14 @@
     margin: auto;
 }
 
-.root > img {
+.image {
     order: 1;
     display: block;
     width: 100%;
+    object-fit: contain;
 }
 
-.root > h1 {
+.heading {
     order: 2;
     font-size: 1.375rem;
     font-weight: 700;

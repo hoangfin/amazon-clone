@@ -9,8 +9,6 @@ import style from "./home.module.css";
 
 export const Home = () => {
     const [homeKitProducts, apiCall, isLoading] = useService(getProductsByQuery);
-    const [width, height] = useResizeObserver();
-    console.log(homeKitProducts);
 
     useEffect(() => {
         apiCall({
@@ -21,7 +19,7 @@ export const Home = () => {
     }, []);
 
     return (
-        <div className={style.root}>
+        <>
             <Header className={style.header} />
 
             <div className={style.container}>
@@ -55,6 +53,6 @@ export const Home = () => {
                     }
                 </section> */}
             </div>
-        </div>
+        </>
     )
 };

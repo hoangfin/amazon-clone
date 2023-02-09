@@ -1,34 +1,49 @@
-import { memo, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { List, Pagination } from "components";
-import { Spinner } from "components/progress";
+import { Pagination } from "components";
 import { Modal } from "components/modal";
-import { ProductCard } from "components/product";
+import { Spinner } from "components/progress";
 import { useService } from "hooks";
-import styles from "./search-page.module.css";
+import { memo, useCallback, useEffect, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { getProductsByQuery as service } from "services/product";
 import { Header } from "../commons";
-import { Hits } from "./components";
+import { SearchResults } from "./components";
+import style from "./search.module.css";
 
 const Component = () => {
     const [searchParams] = useSearchParams();
     const [products, getProductsByQuery, isFetching] = useService(service);
+    const filteredProducts = useMemo(() => {
+        if (!products) return null;
 
-    const handlePageChange = pageNumber => {
-        const query = {
-            q: searchParams.get("title") || "*",
-            query_by: "title",
-            page: pageNumber,
-            per_page: 12
-        };
+        if (products.length === 0) return [];
 
-        if (searchParams.get("category") !== "All") {
-            query.filter_by = `categories: [${searchParams.get("category")}]`
-        }
+        return products.map(product => ({
+            id: product.id,
+            title: product.title,
+            imageURL: product.imageURLs[0],
+            price: product.price,
+            rating: product.rating
+        }));
+    }, [products]);
 
-        getProductsByQuery(query);
-        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-    };
+    const handlePageChange = useCallback(
+        pageNumber => {
+            const query = {
+                q: searchParams.get("title") || "*",
+                query_by: "title",
+                page: pageNumber,
+                per_page: 12
+            };
+
+            if (searchParams.get("category") !== "All") {
+                query.filter_by = `categories: [${searchParams.get("category")}]`
+            }
+
+            getProductsByQuery(query);
+            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        },
+        [searchParams, getProductsByQuery]
+    );
 
     useEffect(() => {
         const query = {
@@ -43,19 +58,18 @@ const Component = () => {
         }
 
         getProductsByQuery(query);
-    }, [searchParams]);
+    }, [searchParams, getProductsByQuery]);
 
     return (
         <>
-            <Header className={styles.header} />
-            <Hits products={products} />
+            <Header className={style.header} />
+            <SearchResults isFetching={isFetching} products={filteredProducts} />
             <Pagination
                 key={searchParams.toString()}
                 pageCount={10}
                 defaultPage={1}
                 onPageChange={handlePageChange}
             />
-
             <Modal isOpen={isFetching}>
                 <Spinner />
             </Modal>

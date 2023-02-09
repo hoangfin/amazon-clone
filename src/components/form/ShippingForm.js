@@ -1,71 +1,96 @@
 import { memo, useCallback, useRef } from "react";
 import { Select } from "components/select";
-import styles from "./shipping-form.module.css";
-import countries from "data/countries.json";
 import { Button } from "components/button";
+import countriesList from "data/countries.json";
+import style from "./shipping-form.module.css";
 
-const selectOpts = countries.map(country => country.name);
+const countries = countriesList.map(country => country.name);
 
-const Component = ({ onSubmit, className }) => {
-    const country = useRef(null);
-    const fullname = useRef(null);
+const Component = ({ user, onSubmit, isProcessing, className }) => {
+    const formRef = useRef(null);
+    const name = useRef(null);
     const address = useRef(null);
-    const apartment = useRef(null);
+    const postcode = useRef(null);
     const city = useRef(null);
-    const zip = useRef(null);
+    const state = useRef(null);
+    const country = useRef(null);
+
+    const submit = useCallback(() => formRef.current.requestSubmit(), []);
 
     const handleSubmit = useCallback(evt => {
         evt.preventDefault();
         onSubmit({
-            country: country.current.value,
-            fullname: fullname.current.value,
+            name: name.current.value,
             address: address.current.value,
-            apartment: apartment.current.value,
+            postcode: postcode.current.value,
             city: city.current.value,
-            zip: zip.current.value
+            ...(state.current?.value ? { state: state.current?.value } : {}),
+            country: country.current.value
         });
     }, [onSubmit]);
 
     return (
-        <div
-            className={`${styles.root}${className ? " " + className : ""}`}
+        <form
+            ref={formRef}
+            className={`${style.root}${className ? " " + className : ""}`}
+            onSubmit={handleSubmit}
         >
-            <label>Country/Region</label>
+            <label className={style.label}>Country/Region</label>
             <Select
                 ref={country}
-                options={selectOpts}
-                defaultValue={selectOpts[0]}
+                options={countries}
+                defaultValue={user?.shippingInfo?.country || countries[0]}
             />
-            <label>Full name (First and Last name)</label>
-            <input ref={fullname} type="text" name="fullname" />
 
-            <label>Street address</label>
+            <label className={style.label}>Full name (First and Last name)</label>
+            <input
+                ref={name}
+                type="text"
+                required
+                defaultValue={user?.shippingInfo?.name}
+                className={style.input}
+            />
+
+            <label className={style.label}>Street address</label>
             <input
                 ref={address}
                 type="text"
-                name="address"
-                placeholder="Street Address, P.O box, company name, c/o"
+                required
+                defaultValue={user?.shippingInfo?.address}
+                className={style.input}
             />
+
+            <label className={style.label}>City</label>
             <input
-                ref={apartment}
+                ref={city}
                 type="text"
-                name="apartment"
-                placeholder="Apartment, suite, unit, building, floor, etc."
+                required
+                defaultValue={user?.shippingInfo?.city}
+                className={style.input}
             />
 
-            <label>City</label>
-            <input ref={city} type="text" name="city" />
+            <label className={style.label}>State / Province / Region</label>
+            <input ref={state} type="text" className={style.input} />
 
-            <label>State / Province / Region</label>
-            <input type="text" name="state" />
+            <label className={style.label}>Postcode</label>
+            <input
+                ref={postcode}
+                type="text"
+                required
+                defaultValue={user?.shippingInfo?.postcode}
+                className={style.input}
+            />
 
-            <label>Zip Code</label>
-            <input ref={zip} type="text" name="zip" />
-
-            <Button type="button" onClick={handleSubmit}>
+            <Button
+                type="button"
+                onClick={submit}
+                disabled={isProcessing}
+                disabledType="progress"
+                className={style.save}
+            >
                 Save
             </Button>
-        </div>
+        </form>
     );
 };
 

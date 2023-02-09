@@ -1,15 +1,15 @@
 import { memo } from "react";
 import { Header } from "../commons";
-import { EmptyCart, ShoppingCart, SubTotal } from "./components";
-import styles from "./checkout.module.css";
+import { EmptyCart, CartItems, SubTotal } from "./components";
+import style from "./checkout.module.css";
 
 const Component = () => {
 
     return (
-        <div className={styles.root}>
-            <Header className={styles.header} />
+        <div className={style.root}>
+            <Header className={style.header} />
             <EmptyCart />
-            <ShoppingCart />
+            <CartItems />
             <SubTotal />
         </div>
     );

@@ -1,5 +1,6 @@
 import { memo } from "react";
-import { Carousel, CarouselSlide, ImageLink } from "components";
+import { Link } from "react-router-dom";
+import { Carousel } from "components/carousel";
 import style from "./banner.module.css";
 
 const slides = [
@@ -21,22 +22,21 @@ const slides = [
     },
 ];
 
+const slideComponent = slide =>
+    <Link to={slide.link}>
+        <img className={style["slide-image"]} src={slide.imageURL} />
+    </Link>
+;
+
 const Component = ({ className }) =>
     <Carousel
-        options={{ loop: true, align: "start" }}
+        slides={slides}
+        renderSlide={slideComponent}
+        option={{ loop: true, align: "start" }}
         className={className}
         prevButtonClassName={style.prev}
         nextButtonClassName={style.next}
-    >
-        {slides.map(slide =>
-            <CarouselSlide key={slide.imageURL}>
-                <ImageLink
-                    link={slide.link}
-                    imageURL={slide.imageURL}
-                />
-            </CarouselSlide>
-        )}
-    </Carousel>
+    />
 ;
 
 export const Banner = memo(Component);

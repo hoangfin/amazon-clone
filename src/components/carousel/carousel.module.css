@@ -1,0 +1,45 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    row-gap: 5px;
+}
+
+.viewport { overflow: hidden; }
+
+.slides-container {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+}
+
+.slide {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+}
+
+.slide-image {
+    display: block;
+    max-width: 100%;
+}
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+}
+
+.prev-button {
+    composes: nav-button;
+    left: 0;
+}
+
+.next-button {
+    composes: nav-button;
+    right: 0;
+}

@@ -1,0 +1,54 @@
+.root {
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem 0.75rem;
+    box-sizing: border-box;
+}
+
+.card {
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.carousel { width: 100%; }
+
+.content {
+    display: grid;
+    row-gap: 0.8rem;
+    min-width: 60%;
+ }
+
+.title {
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.35;
+    color: rgb(15, 17, 17);
+}
+
+.specification {
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgb(213, 217, 217);
+}
+
+.specs-item {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+}
+
+.specs-item > * {
+    flex: 1;
+}
+
+.about {
+    color: #0F1111;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 24px;
+}
+
+.features {
+    list-style-type: disc;
+    margin-left: 1rem;
+}

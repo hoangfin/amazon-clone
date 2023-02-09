@@ -1,4 +1,5 @@
 .root {
+    position: relative;
     display: inline-block;
     padding: 8px 10px;
     border: 1px solid rgb(213, 217, 217);
@@ -8,6 +9,15 @@
 }
 
 .root:disabled {
-    opacity: 0.2;
+    opacity: 0.4;
     cursor: default;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 92%;
+    transform: translate(-50%, -50%);
 }

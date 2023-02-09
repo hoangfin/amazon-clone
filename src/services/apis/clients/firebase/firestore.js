@@ -1,5 +1,14 @@
 import { firestore } from "./config";
-import { collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore";
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    query,
+    setDoc,
+    updateDoc,
+    where
+} from "firebase/firestore";
 
 export const getOrdersByEmail = async (email) => {
     if (!email) {
@@ -8,8 +17,8 @@ export const getOrdersByEmail = async (email) => {
     const q = query(collection(firestore, "orders"), where("orderedBy", "==", email));
     const querySnapshot = await getDocs(q);
     return querySnapshot.empty
-        ?   []
-        :   querySnapshot.docs.map(doc => doc.data())
+            ?   []
+            :   querySnapshot.docs.map(doc => doc.data())
 };
 
 export const createOrder = async (orderID, order) => {

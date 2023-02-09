@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { memo, useCallback } from "react";
 import ReactPaginate from "react-paginate";
 import styles from "./pagination.module.css";
 
-export const Pagination = ({ pageCount, defaultPage, onPageChange }) => {
+const Component = ({ pageCount, defaultPage, onPageChange }) => {
 
-    const handlePageChange = ({ selected }) => {
-        // ReactPaginate component has page number misalignment.
-        // The page number index starts with 0 instead of 1
-        // therefore, re-alignment is needed by adding 1 to selected page
-        onPageChange(selected + 1);
-    };
+    const handlePageChange = useCallback(
+        ({ selected }) => {
+            // ReactPaginate component has page number misalignment.
+            // The page number index starts with 0 instead of 1
+            // therefore, re-alignment is needed by adding 1 to selected page
+            onPageChange(selected + 1);
+        },
+        [onPageChange]
+    );
 
     return (
         <ReactPaginate
@@ -32,4 +35,6 @@ export const Pagination = ({ pageCount, defaultPage, onPageChange }) => {
             renderOnZeroPageCount={null}
         />
     )
-}
+};
+
+export const Pagination = memo(Component);

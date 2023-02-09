@@ -1,12 +1,13 @@
 import { memo, useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useStore } from "hooks";
 import { signOut } from "services/authentication";
 import { ConfirmationDialog } from "components/modal";
-import { userStore, useStore } from "stores";
+import { userStore } from "stores";
 import style from "./auth-nav.module.css";
 
 const Component = () => {
-    const [user, setUser] = useStore(userStore);
+    const [user] = useStore(userStore);
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const show = useCallback(() => setIsOpen(true), []);
@@ -15,7 +16,7 @@ const Component = () => {
     const logOut = useCallback(async () => {
         await signOut();
         setIsOpen(false);
-        setUser(null);
+        userStore.set(null);
         navigate("/");
     }, []);
 
