@@ -1,12 +1,13 @@
 .root {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 1fr);
     gap: 8px;
+    padding: 1rem;
+    background-color: white;
 }
 
-.root label { font-weight: 700; }
+.label { font-weight: 700; }
 
-.root > input {
+.input {
     display: block;
     min-width: 90px;
     height: 31px;
@@ -20,7 +21,15 @@
     box-sizing: border-box;
 }
 
-.root > input:focus {
+.input:focus {
     border-color: #e77600;
     box-shadow: 0 0 3px 2px rgba(228, 121, 17, .5);
+}
+
+.save {
+    background-color: #FFD814;
+}
+
+.save:hover {
+    background-color: #F2C200;
 }

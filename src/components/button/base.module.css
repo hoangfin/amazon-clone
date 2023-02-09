@@ -1,4 +1,4 @@
-.root {
+.button {
     position: relative;
     display: inline-block;
     padding: 8px 10px;
@@ -8,16 +8,7 @@
     box-shadow: 0 0.2rem 0.5rem 0 rgb(213 217 217 / 50%);
 }
 
-.root:disabled {
-    opacity: 0.4;
+.button:disabled {
+    opacity: 0.2;
     cursor: default;
-}
-
-.spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: auto;
-    height: 92%;
-    transform: translate(-50%, -50%);
 }

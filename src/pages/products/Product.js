@@ -10,7 +10,7 @@ const Component = () => {
     return (
         <>
             <Header className={style.header} />
-            <ProductInfo productID={id} className={style["product-info"]} />
+            <ProductInfo productID={id} />
         </>
     );
 };

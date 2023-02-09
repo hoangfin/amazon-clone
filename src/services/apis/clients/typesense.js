@@ -4,8 +4,8 @@ import { Client } from "typesense";
 // nuDrGJ7tI2A0wFR5fP7gA3W2geRcngq3
 const typesenseClient = new Client({
     "nodes": [{
-        "host": "134.209.242.202",
-        // "host": "localhost",
+        // "host": "134.209.242.202",
+        "host": "localhost",
         "port": "8108",
         "protocol": "http"
     }],

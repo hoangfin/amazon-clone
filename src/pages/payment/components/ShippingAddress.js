@@ -1,58 +1,70 @@
-import { memo, useCallback, useEffect, useState } from "react";
-import { Button } from "components/button";
-import { ShippingForm } from "components";
-import { Modal } from "components/modal";
+import { memo, useMemo, useCallback, useState } from "react";
 import { useService, useStore } from "hooks";
-import { updateUser as updateUserService } from "services/user";
 import { userStore } from "stores";
+import { ShippingForm } from "components";
+import { Button } from "components/button";
+import { Dialog } from "components/modal";
+import { updateUser as updateUserService } from "services/user";
+import style from "./shipping-address.module.css";
 
-const Component = ({ onError, onLoad }) => {
+const Component = () => {
     const [user] = useStore(userStore);
-    const [, updateUser, isLoading] = useService(updateUserService);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [, updateUser, isUpdating] = useService(updateUserService);
+    const [isFormOpen, setIsFormOpen] = useState(false);
+    const [error, setError] = useState(null);
 
-    const showShippingForm = useCallback(() => setIsModalOpen(true), []);
-    const closeShippingForm = useCallback(() => setIsModalOpen(false), []);
+    const address = useMemo(() => {
+        if (!user?.shippingInfo) return <p>No shipping address found</p>;
 
-    const handleSubmit = useCallback(formData => {
-        // drop undefined/null properties from formData object
-        const filteredData = Object.entries(formData).reduce(
-            (acc, [k, v]) => {
-                if (v) acc[k] = v;
-                return acc;
-            },
-            {}
+        const { name, address, postcode, city, state, country } = user.shippingInfo;
+        return (
+            <>
+                <p>{name}</p>
+                <p>{address}</p>
+                <p>{postcode} {city}</p>
+                <p>{state}</p>
+                <p className={style.country}>{country}</p>
+            </>
         );
-        updateUser(user.id, { shippingAddress: filteredData })
-            .then(() => {
-                userStore.set();
-                closeShippingForm();
-            })
-            .catch(onError);
-    }, [user?.id, updateUser]);
+    }, [user?.shippingInfo]);
 
-    useEffect(() => {
-        onLoad(isLoading);
-    }, [isLoading, onLoad]);
+    const hideError = useCallback(() => setError(null), []);
+    const showForm = useCallback(() => setIsFormOpen(true), []);
+    const hideForm = useCallback(() => setIsFormOpen(false), []);
+
+    const handleSubmit = useCallback(
+        async (formData) => {
+            if (!user?.id) return;
+            try {
+                await updateUser(user.id, { shippingInfo: formData });
+                userStore.update(user.id, { shippingInfo: formData });
+                hideForm();
+            } catch (error) {
+                setError(error)
+            }
+        },
+        [user?.id, updateUser]
+    );
 
     return (
         <>
-            {
-                user?.shippingAddress
-                    ? <>
-                        <p>{user.shippingAddress.fullname}</p>
-                        <p>{user.shippingAddress.address}</p>
-                        <p>{user.shippingAddress.apartment}</p>
-                        <p>{user.shippingAddress.city}</p>
-                        <p>{user.shippingAddress.zip}</p>
-                    </>
-                    : <p>No shipping address found</p>
-            }
+            {address}
+            <Button onClick={showForm}>Edit</Button>
+            <Dialog
+                title="Update your shipping address"
+                isOpen={isFormOpen}
+                onClose={hideForm}
+            >
+                <ShippingForm
+                    user={user}
+                    onSubmit={handleSubmit}
+                    isProcessing={isUpdating}
+                />
+            </Dialog>
 
-            <Button onClick={showShippingForm}>Edit</Button>
-            <Modal isOpen={isModalOpen} onClose={closeShippingForm}>
-                <ShippingForm onSubmit={handleSubmit} />
-            </Modal>
+            <Dialog title="Error" isOpen={error} onClose={hideError}>
+                {error?.message}
+            </Dialog>
         </>
     )
 };

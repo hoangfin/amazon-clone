@@ -1,50 +1,45 @@
-import { Modal } from "components/modal";
-import { Spinner } from "components/progress";
-import { useCallback, useState } from "react";
+import { useStore } from "hooks";
+import { memo, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { userStore } from "stores";
 import { Header } from "../commons";
-import styles from "./payment.module.css";
-import { PaymentMethod } from "./PaymentMethod";
-import { ReviewItems } from "./ReviewItems";
-import { ShippingAddress } from "./ShippingAddress";
+import { PaymentMethod, ReviewItems, ShippingAddress } from "./components";
+import style from "./payment.module.css";
 
-export const Payment = () => {
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+const Component = () => {
+    const [user] = useStore(userStore);
+    const navigate = useNavigate();
 
-    const handleClose = useCallback(() => setError(null), []);
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user]);
 
     return (
         <>
             <Header />
-            <div className={styles.root}>
-                <section className={styles.section}>
-                    <h3 className={styles.heading}>Shipping Address</h3>
-                    <div className={styles.content}>
-                        <ShippingAddress onError={setError} onLoad={setIsLoading} />
+            <div className={style.root}>
+                <section className={style.section}>
+                    <h3 className={style.heading}>Shipping Address</h3>
+                    <div className={style.content}>
+                        <ShippingAddress />
                     </div>
                 </section>
-                <section className={styles.section}>
-                    <h3 className={styles.heading}>Review items</h3>
-                    <div className={styles.content}>
-                        <ReviewItems />
-                    </div>
-                </section>
-                <section className={styles.section}>
-                    <h3 className={styles.heading}>Payment method</h3>
-                    <div className={styles.content}>
-                        <PaymentMethod onError={setError} />
+
+                <p className={style.heading}>Review items</p>
+                <ReviewItems />
+                
+                <section className={style.section}>
+                    <h3 className={style.heading}>Payment method</h3>
+                    <div className={style.content}>
+                        <PaymentMethod />
                     </div>
                 </section>
             </div>
 
-            <Modal isOpen={isLoading}>
-                <Spinner />
-            </Modal>
-
-            <Modal isOpen={error} onClose={handleClose}>
-                {error}
-            </Modal>
-
         </>
     );
 };
+
+export const Payment = memo(Component, () => true);

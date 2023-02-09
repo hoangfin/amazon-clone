@@ -1,31 +1,26 @@
 import { memo } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "components";
-import { useStore, userStore, cartStore } from "stores";
+import { Link } from "react-router-dom";
+import { cartStore } from "stores";
+import { useStore } from "hooks";
 import { getPriceSum, getQuantitySum } from "utils";
 import style from "./subtotal.module.css";
 
 const Component = () => {
-    const [user] = useStore(userStore);
-    const [cart] = useStore(cartStore);
-    const navigate = useNavigate();
+    const [items] = useStore(cartStore);
 
-    if (cart.length === 0) return null
+    if (items.length === 0) return null;
 
     return (
         <p className={style.subtotal}>
             <span>
-                Subtotal ({getQuantitySum(cart)} items):
-                &#160;<strong>&#36;{(getPriceSum(cart) / 100).toFixed(2)}</strong>
+                Subtotal ({getQuantitySum(items)} items):
+                &#160;<strong>&#36;{(getPriceSum(items) / 100).toFixed(2)}</strong>
             </span>
-            <Button
-                className={style.checkout}
-                onClick={() => navigate(user ? "/payment" : "/login")}
-            >
+            <Link to="/payment" className={style.checkout}>
                 Proceed to checkout
-            </Button>
+            </Link>
         </p>
-    )
+    );
 };
 
-export const SubTotal = memo(Component);
+export const SubTotal = memo(Component, () => true);

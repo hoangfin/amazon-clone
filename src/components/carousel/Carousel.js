@@ -1,41 +1,43 @@
-import { NextButton, PrevButton } from "components";
-import useEmblaCarousel from "embla-carousel-react";
 import { memo, useCallback } from "react";
-import styles from "./carousel.module.css";
+import useEmblaCarousel from "embla-carousel-react";
+import { NextButton, PrevButton } from "components/button";
+import style from "./carousel.module.css";
 
 const Component = ({
-    slidesPerView,
-    children,
-    options,
+    slides,
+    renderSlide,
+    option,
     className,
     prevButtonClassName,
     nextButtonClassName
 }) => {
-    const [viewportRef, emblaAPI] = useEmblaCarousel(options);
+    const [viewportRef, emblaAPI] = useEmblaCarousel(option);
     const scrollPrev = useCallback(() => emblaAPI?.scrollPrev(), [emblaAPI]);
     const scrollNext = useCallback(() => emblaAPI?.scrollNext(), [emblaAPI]);
 
     return (
-        <div className={`${styles.root}${className ? " " + className : ""}`}>
-            <div ref={viewportRef} className={styles.viewport}>
-                <div
-                    className={`${styles["slide-container"]}${
-                        slidesPerView ? " --slides-per-view-" + slidesPerView : ""
-                    }`}
-                >
-                    {children.filter(child => child.type?.name === "CarouselSlide")}
+        <div className={`${style.root}${className ? " " + className : ""}`}>
+            <div ref={viewportRef} className={style.viewport}>
+                <div className={style["slides-container"]}>
+                    {slides.map((slide, index) =>
+                        <div key={index} className={style.slide}>
+                            {renderSlide(slide)}
+                        </div>
+                    )}
                 </div>
             </div>
             <PrevButton
-                className={`${styles["prev-button"]}${
-                    prevButtonClassName ? " " + prevButtonClassName : ""
-                }`}
+                className={
+                    style["prev-button"] +
+                    (prevButtonClassName ? " " + prevButtonClassName : "")
+                }
                 onClick={scrollPrev}
             />
             <NextButton
-                className={`${styles["next-button"]}${
-                    nextButtonClassName ? " " + nextButtonClassName : ""
-                }`}
+                className={
+                    style["next-button"] +
+                    (nextButtonClassName ? " " + nextButtonClassName : "")
+                }
                 onClick={scrollNext}
             />
         </div>
@@ -43,6 +45,3 @@ const Component = ({
 };
 
 export const Carousel = memo(Component);
-export const CarouselSlide = ({ className, children }) =>
-    <div className={className}>{children}</div>
-;

@@ -28,7 +28,7 @@
     color: rgb(255, 255, 255);
 }
 
-.actions-group {
+.navs {
     max-width: 300px;
     display: flex;
     flex-wrap: nowrap;

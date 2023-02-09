@@ -7,7 +7,7 @@ import { createOrder } from "services/order";
 import { getPriceSum, getQuantitySum } from "utils";
 import styles from "./payment-method.module.css";
 
-const Component = ({ onError }) => {
+const Component = () => {
     const [user] = useStore(userStore);
     const [cart] = useStore(cartStore);
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Component = ({ onError }) => {
                     cartStore.set([]);
                     navigate("/");
                 })
-                .catch(err => onError(err));
+                .catch(err => {});
         },
         [createOrder, user?.email, cart, cartStore.set, navigate]
     );
@@ -36,6 +36,7 @@ const Component = ({ onError }) => {
                 <strong>&#36;{getPriceSum(cart) / 100}</strong>
                 &#160;({getQuantitySum(cart)} items)
             </p>
+            <i>You can make a test payment with this card number 4242 4242 4242 4242   04/24   242   42424</i>
             <StripeCardPayment
                 items={cart}
                 className={styles.card}

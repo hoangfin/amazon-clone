@@ -10,6 +10,11 @@
 }
 
 .checkout {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+    border: 1px solid rgb(213, 217, 217);
+    border-radius: 0.5rem;
+    box-shadow: 0 0.2rem 0.5rem 0 rgb(213 217 217 / 50%);
     background-color: #FFD814;
 }
 

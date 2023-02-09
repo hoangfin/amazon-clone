@@ -1,11 +1,6 @@
 .root {
-    height: 100vh;
+    min-height: 100vh;
     background-color: rgb(234, 237, 237);
-}
-
-.cart {
-    padding: 20px;
-    box-sizing: border-box;
 }
 
 .header {

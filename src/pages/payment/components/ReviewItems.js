@@ -1,22 +1,14 @@
 import { memo } from "react";
 import { useStore } from "hooks";
 import { cartStore } from "stores";
-import { ReviewListItem } from "components/product";
+import { ReviewList } from "components/product";
 
 const Component = () => {
-    const [cart] = useStore(cartStore);
+    const [items] = useStore(cartStore);
 
-    if (!cart.length) return null;
+    if (!items.length) return null;
 
-    return (
-        <ul>
-            {cart.map(item =>
-                <li key={item.id}>
-                    <ReviewListItem {...item} />
-                </li>
-            )}
-        </ul>
-    )
+    return <ReviewList products={items}/>;
 };
 
-export const ReviewItems = memo(Component);
+export const ReviewItems = memo(Component, () => true);

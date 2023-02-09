@@ -1,1 +1,1 @@
-export * from "./ReviewListItem";
+export * from "./ReviewList";

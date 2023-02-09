@@ -23,6 +23,8 @@ const Component = ({
         if (!emblaThumbsAPI.clickAllowed()) return;
         emblaAPI.scrollTo(index);
     }, [emblaAPI, emblaThumbsAPI]);
+    // console.log(thumbnailsViewportRef);
+    console.log(emblaThumbsAPI);
 
     useEffect(() => {
         if (emblaAPI) {

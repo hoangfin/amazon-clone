@@ -1,6 +1,9 @@
 .root {
     display: flex;
     flex-direction: column;
+    width: 90%;
+    max-width: 450px;
+    margin: auto;
 }
 
 .image {

@@ -11,3 +11,9 @@
     height: 4.6%;
     margin-top: 9%;
 }
+
+.slide-image {
+    display: block;
+    max-width: 100%;
+    object-fit: contain;
+}

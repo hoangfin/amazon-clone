@@ -6,9 +6,14 @@ userStore.subscribe(user => {
     localStorage.setItem("user", JSON.stringify(user));
 });
 
-export const {
-    subscribe,
-    get = () => svelteGet(userStore),
-    set,
-    update
-} = userStore;
+export const get = () => svelteGet(userStore);
+export const { subscribe, set } = userStore;
+
+export const update = (id, field) => {
+    if (svelteGet(userStore).id !== id) {
+        return;
+    }
+    userStore.update(user => ({ ...user, ...field }));
+};
+
+console.log("user store loaded");

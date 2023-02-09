@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { useStore, userStore } from "stores";
+import { useStore } from "hooks";
+import { userStore } from "stores";
 import style from "./order-nav.module.css";
 
 const Component = () => {

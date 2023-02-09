@@ -1,38 +1,41 @@
-import { Rating } from "@mui/material";
-import { CurrencyFormat } from "components";
-import { Card } from "components/card";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { add } from "stores/cart";
+import { ProductCard } from "components/card";
+import { Button } from "components/button";
 import style from "./search-results.module.css";
 
-const Component = ({ products }) => {
-    if (!products?.length) {
+const ListItem = memo(({ product }) => {
+    const addProduct = useCallback(() => add(product, 1), []);
+
+    return (
+        <li className={style["list-item"]}>
+            <Link to={`/products/${product.id}`}>
+                <ProductCard
+                    product={product}
+                    mediaOverlayColor="silver"
+                    mediaClassName={style.media}
+                    mediaImageClassName={style["media-image"]}
+                />
+            </Link>
+            <Button onClick={addProduct} className={style["add-button"]}>
+                Add to Cart
+            </Button>
+        </li>
+    );
+});
+
+const Component = ({ products, isFetching }) => {
+
+    if (!products || isFetching) return null;
+
+    if (products.length === 0) {
         return <div>Couldn't find anything here</div>;
     }
 
     return (
         <ul className={style.list}>
-            {products?.map(product =>
-                <li className={style["list-item"]} key={product.id}>
-                    <Card
-                        media={
-                            <Link to={`/products/${product.id}`}>
-                                <img className={style["media-image"]} src={product.imageURLs[0]} />
-                            </Link>
-                        }
-                        content={
-                            <Link className={style["content-link"]} to={`/products/${product.id}`}>
-                                <h3 className={style.title}>{product.title}</h3>
-                                <Rating readOnly value={product.rating} precision={0.1} size="small" />
-                                <CurrencyFormat price={product.price} />
-                            </Link>
-                        }
-                        mediaOverlayColor="silver"
-                        mediaClassName={style.media}
-                        contentClassName={style.content}
-                    />
-                </li>
-            )}
+            {products.map(product => <ListItem key={product.id} product={product} />)}
         </ul>
     );
 };

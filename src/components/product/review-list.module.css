@@ -1,7 +1,6 @@
 .root {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    display: grid;
+    row-gap: 0.8rem;
     color: #0F1111;
     background-color: rgb(255, 255, 255);
 }
