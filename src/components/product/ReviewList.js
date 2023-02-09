@@ -4,9 +4,9 @@ import style from "./review-list.module.css";
 
 const MediaMemoized = memo(({ product }) =>
     <img
-        className={style.image}
         src={product.imageURL}
         alt={`Product ${product.id} image`}
+        className={style["media-image"]}
     />
 );
 
@@ -18,11 +18,17 @@ const ContentMemoized = memo(({ product }) =>
     </>
 );
 
-const Component = ({ products, className }) => {
+const Component = ({ products, className, listItemClassName }) => {
     return (
         <ul className={style.root + (className ? " " + className : "")}>
             {products.map(product =>
-                <li key={product.id}>
+                <li
+                    key={product.id}
+                    className={
+                        style["list-item"] +
+                        (listItemClassName ? " " + listItemClassName : "")
+                    }
+                >
                     <Card
                         media={<MediaMemoized product={product} />}
                         content={<ContentMemoized product={product} />}
