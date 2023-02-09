@@ -1,4 +1,4 @@
-.root {
+.container {
     max-width: 1024px;
     padding: 20px;
     margin: auto;
@@ -10,4 +10,5 @@
     font-weight: 400;
     font-size: 1.75rem;
     line-height: 1.28;
+    border-bottom: 1px solid rgb(231, 231, 231);;
 }
