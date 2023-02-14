@@ -5,7 +5,8 @@ import style from "./carousel.module.css";
 
 const Component = ({
     slides,
-    renderSlide,
+    slideComponent,
+    slidesPerView,
     option,
     className,
     prevButtonClassName,
@@ -18,10 +19,14 @@ const Component = ({
     return (
         <div className={`${style.root}${className ? " " + className : ""}`}>
             <div ref={viewportRef} className={style.viewport}>
-                <div className={style["slides-container"]}>
+                <div
+                    className={
+                        style["slides-container"] +
+                        (slidesPerView ? " --slides-per-view-" + slidesPerView : "")
+                    }>
                     {slides.map((slide, index) =>
                         <div key={index} className={style.slide}>
-                            {renderSlide(slide)}
+                            {slideComponent(slide)}
                         </div>
                     )}
                 </div>

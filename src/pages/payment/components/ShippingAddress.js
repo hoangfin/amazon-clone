@@ -48,8 +48,15 @@ const Component = () => {
 
     return (
         <>
-            {address}
-            <Button onClick={showForm}>Edit</Button>
+            <div className={style.root}>
+                <h2 className={style.heading}>Shipping Address</h2>
+                <div>
+                    {address}
+                    
+                    <Button onClick={showForm}>Edit</Button>
+                </div>
+            </div>
+
             <Dialog
                 title="Update your shipping address"
                 isOpen={isFormOpen}

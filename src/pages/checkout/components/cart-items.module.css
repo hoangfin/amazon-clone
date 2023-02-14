@@ -42,3 +42,26 @@
     font-weight: 700;
     line-height: 1.3;
 }
+
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 450px;
+    margin: auto;
+}
+
+.empty-cart-heading {
+    order: 2;
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #0F1111;
+    text-align: center;
+}
+
+.empty-cart-image {
+    order: 1;
+    display: block;
+    width: 100%;
+    object-fit: contain;
+}

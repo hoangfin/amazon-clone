@@ -1,6 +1,10 @@
 import { memo } from "react";
 import style from "./card.module.css";
 
+export const Media = memo(() => {
+    
+});
+
 const Component = ({
     media,
     content,

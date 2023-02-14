@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState, memo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Select } from "components";
+import { Select } from "components/select";
 import { useService, useDebounceCallback } from "hooks";
 import { SearchButton } from "components/button";
 import { getProductsByQuery as getProductsByQueryService } from "services/product";

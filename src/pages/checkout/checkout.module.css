@@ -1,9 +1,14 @@
 .root {
-    min-height: 100vh;
-    background-color: rgb(234, 237, 237);
+    /* min-height: 100vh;
+    background-color: rgb(234, 237, 237); */
 }
 
 .header {
     position: relative;
     z-index: 1;
+}
+
+.container {
+    max-width: 1024px;
+    margin: 0 auto;
 }

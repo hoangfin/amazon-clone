@@ -2,7 +2,7 @@ import { Pagination } from "components";
 import { Modal } from "components/modal";
 import { Spinner } from "components/progress";
 import { useService } from "hooks";
-import { memo, useCallback, useEffect, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getProductsByQuery as service } from "services/product";
 import { Header } from "../commons";
@@ -12,32 +12,17 @@ import style from "./search.module.css";
 const Component = () => {
     const [searchParams] = useSearchParams();
     const [products, getProductsByQuery, isFetching] = useService(service);
-    const filteredProducts = useMemo(() => {
-        if (!products) return null;
 
-        if (products.length === 0) return [];
-
-        return products.map(product => ({
-            id: product.id,
-            title: product.title,
-            imageURL: product.imageURLs[0],
-            price: product.price,
-            rating: product.rating
-        }));
-    }, [products]);
-
-    const handlePageChange = useCallback(
+    const fetchProducts = useCallback(
         pageNumber => {
+            const category = searchParams.get("category");
             const query = {
                 q: searchParams.get("title") || "*",
                 query_by: "title",
+                ...(category !== "All" ? { filter_by: `categories: [${category}]` } : {}),
                 page: pageNumber,
                 per_page: 12
             };
-
-            if (searchParams.get("category") !== "All") {
-                query.filter_by = `categories: [${searchParams.get("category")}]`
-            }
 
             getProductsByQuery(query);
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -45,30 +30,17 @@ const Component = () => {
         [searchParams, getProductsByQuery]
     );
 
-    useEffect(() => {
-        const query = {
-            q: searchParams.get("title") || "*",
-            query_by: "title",
-            page: 1,
-            per_page: 12
-        };
-
-        if (searchParams.get("category") !== "All") {
-            query.filter_by = `categories: [${searchParams.get("category")}]`
-        }
-
-        getProductsByQuery(query);
-    }, [searchParams, getProductsByQuery]);
+    useMemo(() => fetchProducts(1), [fetchProducts]);
 
     return (
         <>
             <Header className={style.header} />
-            <SearchResults isFetching={isFetching} products={filteredProducts} />
+            <SearchResults products={products} />
             <Pagination
                 key={searchParams.toString()}
                 pageCount={10}
                 defaultPage={1}
-                onPageChange={handlePageChange}
+                onPageChange={fetchProducts}
             />
             <Modal isOpen={isFetching}>
                 <Spinner />

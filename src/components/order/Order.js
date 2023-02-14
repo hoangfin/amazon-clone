@@ -10,7 +10,11 @@ const Component = ({ id, amount, items, created }) =>
             <p>{moment.unix(created).format("MMMM Do YYYY")}</p>
         </h2>
 
-        <ReviewList products={items} />
+        <ReviewList
+            products={items}
+            className={style.list}
+            listItemClassName={style["list-item"]}
+        />
 
         <p className={style.total}>
             Order Total: <strong>&#36;{amount / 100}</strong>

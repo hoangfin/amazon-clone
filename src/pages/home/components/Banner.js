@@ -31,7 +31,7 @@ const slideComponent = slide =>
 const Component = ({ className }) =>
     <Carousel
         slides={slides}
-        renderSlide={slideComponent}
+        slideComponent={slideComponent}
         option={{ loop: true, align: "start" }}
         className={className}
         prevButtonClassName={style.prev}

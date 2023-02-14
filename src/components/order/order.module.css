@@ -8,29 +8,20 @@
     background-color: rgb(246, 246, 246);
 }
 
-.id {
-    word-break: break-all;
-}
+.id { word-break: break-all;}
 
 .list {
-    padding: 20px;
+    padding: 0 1.5rem;
     border-left: 1px solid rgb(221, 221, 221);
     border-right: 1px solid rgb(221, 221, 221);
 }
 
-.li {
-    position: relative;
-    padding: 20px;
+.list-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgb(231, 231, 231);
 }
 
-.li:nth-child(even)::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(123, 123, 123, 0.03);
-}
+.list-item:last-child { border: none; }
 
 .total {
     padding: 20px;
@@ -40,4 +31,5 @@
     border: 1px solid rgb(221, 221, 221);
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
+    background-color: rgb(246, 246, 246);
 }
