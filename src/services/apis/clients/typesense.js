@@ -1,15 +1,12 @@
 import { Client } from "typesense";
 
-// Mx3ofRw7LrB9yE1RpEi2P3Kwv7ktzqDA
-// nuDrGJ7tI2A0wFR5fP7gA3W2geRcngq3
 const typesenseClient = new Client({
     "nodes": [{
-        // "host": "134.209.242.202",
-        "host": "localhost",
+        "host": "134.209.242.202",
         "port": "8108",
         "protocol": "http"
     }],
-    "apiKey": "Mx3ofRw7LrB9yE1RpEi2P3Kwv7ktzqDA",
+    "apiKey": "vD8ddEaESa3Vx2IgSExPOd3uZteIAKWO",
     "connectionTimeoutSeconds": 5
 });
 

@@ -29,6 +29,7 @@ firestore-debug.log
 firestore-snapshot
 
 .vscode
+typesense-api-key.json
 clone-8ce9f-firebase-adminsdk-fe85x-66fa0b5d7e.json
 data-feed.js
 amazon_laptops_tablets.json

@@ -32,6 +32,7 @@ const Component = ({ products, className, listItemClassName }) => {
                     <Card
                         media={<MediaMemoized product={product} />}
                         content={<ContentMemoized product={product} />}
+                        contentClassName={style.content}
                     />
                 </li>
             )}

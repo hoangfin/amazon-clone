@@ -12,30 +12,18 @@ const Component = () => {
 
     useEffect(() => {
         if (!user) {
-            navigate("/login");
+            navigate("/login", { replace: true });
         }
     }, [user]);
 
     return (
         <>
             <Header />
-            <div className={style.root}>
-                <section className={style.section}>
-                    <h3 className={style.heading}>Shipping Address</h3>
-                    <div className={style.content}>
-                        <ShippingAddress />
-                    </div>
-                </section>
-
-                <p className={style.heading}>Review items</p>
+            <h1 className={style.title}>Payment</h1>
+            <div className={style.container}>
+                <ShippingAddress />
                 <ReviewItems />
-                
-                <section className={style.section}>
-                    <h3 className={style.heading}>Payment method</h3>
-                    <div className={style.content}>
-                        <PaymentMethod />
-                    </div>
-                </section>
+                <PaymentMethod />
             </div>
 
         </>

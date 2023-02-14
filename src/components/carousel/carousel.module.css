@@ -1,4 +1,5 @@
 .root {
+    position: relative;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -13,17 +14,17 @@
     grid-auto-columns: 100%;
 }
 
+.slides-container:global(.--slides-per-view-6) {
+    grid-auto-columns: 16.6666%;
+}
+
 .slide {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
     cursor: grab;
-}
-
-.slide-image {
-    display: block;
-    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .nav-button {

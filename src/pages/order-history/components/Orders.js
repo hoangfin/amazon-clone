@@ -5,18 +5,9 @@ import { Order } from "components/order";
 import { ErrorDialog, Modal } from "components/modal";
 import { Spinner } from "components/progress";
 import { userStore } from "stores";
+import style from "./orders.module.css";
 
-export const Orders = memo(() => {
-    const [user] = useStore(userStore);
-    const [orders, getOrdersByEmail, isFetching] = useService(service);
-    const [error, setError] = useState(null);
-
-    useMemo(() => {
-        if (user) {
-            getOrdersByEmail(user.email).catch(setError);
-        }
-    }, [user]);
-
+const getOrdersList = orders => {
     if (!orders) return null;
 
     if (orders.length === 0) {
@@ -24,14 +15,31 @@ export const Orders = memo(() => {
     }
 
     return (
+        <ul className={style.list}>
+            {orders.map(order =>
+                <li key={order.id}>
+                    <Order {...order} />
+                </li>
+            )}
+        </ul>
+    );
+};
+
+export const Orders = memo(() => {
+    const [user] = useStore(userStore);
+    const [orders, getOrdersByEmail, isFetching] = useService(service);
+    const [error, setError] = useState(null);
+    const ordersList = getOrdersList(orders);
+
+    useMemo(() => {
+        if (user) {
+            getOrdersByEmail(user.email).catch(setError);
+        }
+    }, [user]);
+
+    return (
         <>
-            <ul>
-                {orders.map(order =>
-                    <li key={order.id}>
-                        <Order {...order} />
-                    </li>
-                )}
-            </ul>
+            {ordersList}
 
             <Modal isOpen={isFetching}>
                 <Spinner />

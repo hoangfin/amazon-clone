@@ -1,0 +1,25 @@
+.root {
+    position: relative;
+    padding: 8px 10px;
+    border: 1px solid rgb(213, 217, 217);
+    border-radius: 0.5rem;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0.2rem 0.5rem 0 rgb(213 217 217 / 50%);
+}
+
+.root:disabled {
+    color: rgba(0, 0, 0, 0.26);
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.12);
+    cursor: default;
+}
+
+.spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: 92%;
+    pointer-events: none;
+}

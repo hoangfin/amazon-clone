@@ -10,11 +10,12 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 24px;
+    padding: 0.5rem 1rem;
     font-weight: 500;
     font-size: 1.1rem;
     line-height: 1.6;
     color: rgba(0, 0, 0, 0.87);
+    border-bottom: 1px solid rgb(231, 237, 237);
 }
 
 .close {

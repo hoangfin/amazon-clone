@@ -1,0 +1,10 @@
+.carousel {
+    margin: 1rem 0;
+    background-color: rgb(255, 255, 255);
+}
+
+.slide-image {
+    display: block;
+    max-width: 100%;
+    object-fit: contain;
+}
