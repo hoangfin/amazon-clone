@@ -1,8 +1,8 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { Checkout, Home, Login, OrderHistory, Payment, Product, Search } from "pages";
-import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
-import { userStore } from "stores";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "stores";
 
 const stripePromise = loadStripe(
     "pk_test_51LBxovAczuSx9NaantjDoChzPMfN9Xz4FsZjpRwmVwnuIDUIVFxi" +
@@ -13,7 +13,7 @@ export default function App() {
 
     return (
         <>
-            <Router>
+            <Router basename={process.env.PUBLIC_URL}>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/search" element={<Search />} />
