@@ -36,15 +36,8 @@ const Component = () => {
         <>
             <Header className={style.header} />
             <SearchResults products={products} />
-            <Pagination
-                key={searchParams.toString()}
-                pageCount={10}
-                defaultPage={1}
-                onPageChange={fetchProducts}
-            />
-            <Modal isOpen={isFetching}>
-                <Spinner />
-            </Modal>
+            <Pagination key={searchParams.toString()} pageCount={10} defaultPage={1} onPageChange={fetchProducts} />
+            <Modal isOpen={isFetching}><Spinner /></Modal>
         </>
     )
 };

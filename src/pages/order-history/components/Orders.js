@@ -2,7 +2,7 @@ import { memo, useMemo, useState } from "react";
 import { useService, useStore } from "hooks";
 import { getOrdersByEmail as service } from "services/order";
 import { Order } from "components/order";
-import { ErrorDialog, Modal } from "components/modal";
+import { Dialog, Modal } from "components/modal";
 import { Spinner } from "components/progress";
 import { userStore } from "stores";
 import style from "./orders.module.css";
@@ -45,10 +45,10 @@ export const Orders = memo(() => {
                 <Spinner />
             </Modal>
 
-            <ErrorDialog
+            {/* <ErrorDialog
                 isOpen={error}
 
-            />
+            /> */}
         </>
     );
 });

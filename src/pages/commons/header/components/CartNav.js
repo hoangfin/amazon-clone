@@ -11,7 +11,7 @@ const Component = () => {
     return (
         <Link to="/checkout" className={style.root}>
             <svg viewBox="0 0 20 20">
-                <use xlinkHref="/sprites.svg#cart" />
+                <use xlinkHref={`${process.env.PUBLIC_URL}/sprites.svg#cart`} />
             </svg>
             <span>{getQuantitySum(cart)}</span>
         </Link>

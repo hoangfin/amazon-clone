@@ -7,7 +7,7 @@ export const NextButton = ({ className, iconClassName, onClick, disabled }) =>
         disabled={disabled}
     >
         <svg className={iconClassName} viewBox="0 0 24 24">
-            <use xlinkHref="/sprites.svg#arrow-forward" />
+            <use xlinkHref={`${process.env.PUBLIC_URL}/sprites.svg#arrow-forward`} />
         </svg>
     </button>
 ;

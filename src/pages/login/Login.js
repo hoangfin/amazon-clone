@@ -15,11 +15,13 @@ const Component = () => {
         }
     }, [user, navigate]);
 
+    if (user) return null;
+
     return (
         <>
             <Link className={style.logo} to="/">
                 <svg viewBox="0 0 602.280 181.499">
-                    <use xlinkHref="/sprites.svg#amazon-logo" />
+                    <use xlinkHref={`${process.env.PUBLIC_URL}/sprites.svg#amazon-logo`} />
                 </svg>
             </Link>
 

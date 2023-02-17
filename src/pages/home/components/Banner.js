@@ -28,15 +28,14 @@ const slideComponent = slide =>
     </Link>
 ;
 
-const Component = ({ className }) =>
+export const Banner = memo(() =>
     <Carousel
         slides={slides}
         slideComponent={slideComponent}
         option={{ loop: true, align: "start" }}
-        className={className}
+        className={style.carousel}
         prevButtonClassName={style.prev}
         nextButtonClassName={style.next}
-    />
-;
-
-export const Banner = memo(Component);
+    />,
+    () => true
+);

@@ -2,11 +2,13 @@ import { Client } from "typesense";
 
 const typesenseClient = new Client({
     "nodes": [{
-        "host": "134.209.242.202",
+        // "host": "134.209.242.202",
+        "host": "localhost",
         "port": "8108",
         "protocol": "http"
     }],
-    "apiKey": "vD8ddEaESa3Vx2IgSExPOd3uZteIAKWO",
+    // "apiKey": "vD8ddEaESa3Vx2IgSExPOd3uZteIAKWO",
+    "apiKey": "Mx3ofRw7LrB9yE1RpEi2P3Kwv7ktzqDA",
     "connectionTimeoutSeconds": 5
 });
 
@@ -16,26 +18,15 @@ export const getProductByID = async (productID) => {
     }
 
     const query = { q: "*", filter_by: `productID:=${productID}` };
-    const result = await typesenseClient
-                            .collections("products")
-                            .documents()
-                            .search(query);
+    const result = await typesenseClient.collections("products").documents().search(query);
     return result.found
         ?   result.hits[0].document
-        :   Promise.reject(
-                new Error(`Couldn't find product with given ID: ${productID}`)
-            );
+        :   Promise.reject(new Error(`Couldn't find product with given ID: ${productID}`));
 };
 
 export const getProductsByQuery = async (query) => {
-    const result = await typesenseClient
-                            .collections("products")
-                            .documents()
-                            .search(query);
+    const result = await typesenseClient.collections("products").documents().search(query);
     return result.found
-        ?   result.hits.map(hit => ({
-                ...hit.document,
-                highlights: hit.highlights
-            }))
+        ?   result.hits.map(hit => ({ ...hit.document, highlights: hit.highlights }))
         :   [];
 };

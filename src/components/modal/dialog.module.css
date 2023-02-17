@@ -1,30 +1,50 @@
 .root {
     min-width: 300px;
+    min-height: 185px;
     border-radius: 4px;
     background-color: rgb(255, 255, 255);
     box-sizing: border-box;
 }
 
+.header,
+.content { padding: 0.5rem; }
+
 .header {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem;
-    font-weight: 500;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: rgba(0, 0, 0, 0.87);
+    column-gap: 0.5rem;
     border-bottom: 1px solid rgb(231, 237, 237);
 }
 
-.close {
-    display: inline-block;
-    background: none;
+.title {
+    font-weight: 500;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.87);
 }
 
-.close-icon {
+.title:global(.--error) { color: rgb(223 21 21); }
+
+.icon {
     display: block;
-    width: 32px;
-    height: 32px;
+    width: 1.5rem;
+    height: auto;
+}
+
+.success-icon {
+    composes: icon;
+    width: 1.8rem;
+    color: rgb(136 192 61);
+}
+
+.error-icon {
+    composes: icon;
+    width: 1.8rem;
+    color: rgb(223 21 21);
+}
+
+.close {
+    margin-left: auto;
+    background: none;
 }

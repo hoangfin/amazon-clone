@@ -42,6 +42,45 @@ const cards = [
         ].join(""),
         link: "/search?category=Computers",
         linkLabel: "See more"
+    },
+    {
+        title: "For your Fitness Needs",
+        imageURL: [
+            "https://images-na.ssl-images-amazon.com/images/G/01",
+            "/AmazonExports/Fuji/2021/September/DashboardCards",
+            "/Fuji_Dash_Fitness_1X._SY304_CB639748186_.jpg"
+        ].join(""),
+        link: "/search?category=All&title=work+from+home+fitness",
+        linkLabel: "Shop now"
+    },
+    {
+        title: "Shop Pet supplies",
+        imageURL: [
+            "https://images-na.ssl-images-amazon.com/images/G/01",
+            "/AmazonExports/Fuji/2021/September/DashboardCards",
+            "/Fuji_Dash_Pets_1X._SY304_CB639746743_.jpg"
+        ].join(""),
+        link: "/search?category=All&title=pet+supplies",
+        linkLabel: "See more"
+    },
+    {
+        title: "Shop activity trackers and smartwatchess",
+        imageURL: [
+            "https://images-na.ssl-images-amazon.com/images/G/01",
+            "/AmazonExports/Fuji/2021/September/DashboardCards",
+            "/Fuji_Dash_SmartWatch_1X._SY304_CB639922137_.jpg"
+        ].join(""),
+        link: "/search?category=All&title=activity+trackers+and+smartwatches",
+        linkLabel: "Shop now"
+    },
+    {
+        title: "Tools and Home Improvement",
+        imageURL: [
+            "https://images-na.ssl-images-amazon.com/images/G/01/home/THILGMA/Holiday2022/Graphics",
+            "/XCM_CUTTLE_1475305_2610205_379x304_1X_en_US._SY304_CB608600856_.jpg"
+        ].join(""),
+        link: "/search?category=Tools+%26+Home+Improvement",
+        linkLabel: "Shop now"
     }
 ];
 

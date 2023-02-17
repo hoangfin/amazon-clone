@@ -12,7 +12,7 @@ const options = Array.from({ length: 10 }, (_, i) => i + 1);
 const EmptyCart = () =>
     <div className={style["empty-cart"]}>
         <h1 className={style["empty-cart-heading"]}>Your cart is empty</h1>
-        <img className={style["empty-cart-image"]} src="/empty-cart.svg" />
+        <img className={style["empty-cart-image"]} src={`${process.env.PUBLIC_URL}/empty-cart.svg`} />
     </div>
 ;
 
@@ -59,8 +59,6 @@ const ListItem = memo(({ item }) => {
         </li>
     );
 });
-
-
 
 const Component = () => {
     const [items] = useStore(cartStore);

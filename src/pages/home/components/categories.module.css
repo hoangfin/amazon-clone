@@ -2,4 +2,5 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(max(250px, (100% - 4rem) / 4), 1fr));
     gap: 1rem;
+    margin-top: max(140px, 18%);
 }

@@ -82,7 +82,7 @@ const ForwardRefSelect = (
                 </span>
 
                 <svg viewBox="0 0 24 24">
-                    <use xlinkHref="/sprites.svg#expand-more" />
+                    <use xlinkHref={`${process.env.PUBLIC_URL}/sprites.svg#expand-more`} />
                 </svg>
             </button>
             {

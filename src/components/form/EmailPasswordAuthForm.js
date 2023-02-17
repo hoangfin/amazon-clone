@@ -1,30 +1,26 @@
-import { memo, useCallback, useRef } from "react";
-import { Button } from "components/button";
+import { memo, useCallback, useRef, useState } from "react";
+import { LoadingButton } from "components/button";
 import style from "./email-password-auth-form.module.css";
 
 const Component = ({ onSignIn, onRegister, isProcessing, className }) => {
     const emailRef = useRef();
     const pwdRef = useRef();
+    const [submitter, setSubmitter] = useState("");
 
     const handleSubmit = useCallback(
-        evt => {
+        async (evt) => {
             evt.preventDefault();
-            console.log("handleSubmit");
 
-            const data = {
-                email: emailRef.current.value,
-                password: pwdRef.current.value
-            };
+            const submitElement = evt.nativeEvent.submitter;
+            setSubmitter(submitElement.name);
 
-            const submitter = evt.nativeEvent.submitter;
-
-            if (submitter?.name === "login") {
-                onSignIn(data);
+            if (submitElement.name === "login") {
+                onSignIn(emailRef.current.value, pwdRef.current.value);
                 return;
             }
 
-            if (submitter?.name === "register") {
-                onRegister(data);
+            if (submitElement.name === "register") {
+                onRegister(emailRef.current.value, pwdRef.current.value);
                 return;
             }
         },
@@ -44,22 +40,25 @@ const Component = ({ onSignIn, onRegister, isProcessing, className }) => {
             <label>Password</label>
             <input ref={pwdRef} type="password" required className={style.input} />
 
-            <Button name="login" className={style.button} disabled={isProcessing}>
-                Continue
-            </Button>
-
-            <Button
-                name="register"
-                className={style.register}
+            <LoadingButton
+                name="login"
+                isLoading={isProcessing && submitter === "login"}
                 disabled={isProcessing}
+                className={style.button}
+            >
+                Continue
+            </LoadingButton>
+
+            <LoadingButton
+                name="register"
+                isLoading={isProcessing && submitter === "register"}
+                disabled={isProcessing}
+                className={style.register}
             >
                 Create your Amazon Account
-            </Button>
+            </LoadingButton>
 
-            <p>
-                By continuing, you agree to Amazon Clone's
-                Conditions of Use and Privacy Notice.
-            </p>
+            <p>By continuing, you agree to Amazon Clone's Conditions of Use and Privacy Notice.</p>
         </form>
     )
 };

@@ -1,9 +1,9 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useService } from "hooks";
 import { userStore } from "stores";
 import { EmailPasswordAuthForm } from "components/form";
-import { ErrorDialog, Modal } from "components/modal";
+import { Dialog } from "components/modal";
 import {
     register as registerService,
     signIn as signInService
@@ -11,27 +11,16 @@ import {
 import style from "./auth-form.module.css";
 
 const Component = () => {
-    const [authUser, signIn, isSigningIn] = useService(signInService);
-    const [regUser, register, isRegistering] = useService(registerService);
+    const [authUser, signIn, isSigningIn, authError, setAuthError] = useService(signInService);
+    const [regUser, register, isRegistering, regError, setRegError] = useService(registerService);
     const user = authUser || regUser;
-    const [error, setError] = useState(null);
+    const error = authError || regError;
     const navigate = useNavigate();
 
-    const handleSignIn = useCallback(
-        ({ email, password }) => {
-            signIn(email, password).catch(err => setError(err));
-        },
-        [signIn]
-    );
-
-    const handleRegister = useCallback(
-        ({ email, password }) => {
-            register(email, password).catch(err => setError(err));
-        },
-        [register]
-    );
-
-    const handleClose = useCallback(() => setError(null), []);
+    const handleClose = useCallback(() => {
+        setAuthError(null);
+        setRegError(null);
+    }, []);
 
     useEffect(() => {
         if (user) {
@@ -44,12 +33,13 @@ const Component = () => {
         <>
             <EmailPasswordAuthForm
                 isProcessing={isSigningIn || isRegistering}
-                onRegister={handleRegister}
-                onSignIn={handleSignIn}
+                onRegister={register}
+                onSignIn={signIn}
                 className={style.form}
             />
 
-            <ErrorDialog
+            <Dialog
+                type="error"
                 title="Oops! Error has occurred"
                 message={error?.message}
                 isOpen={error}
