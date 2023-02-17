@@ -24,11 +24,12 @@ export const useService = (service) => {
                 if (currentRequest.current === requestID) {
                     setData(response);
                     setIsFetching(false);
+                    return response;
                 }
             } catch (err) {
                 setError(err);
                 setIsFetching(false);
-                return Promise.reject(error);
+                return Promise.reject(err);
             }
         },
         [service]

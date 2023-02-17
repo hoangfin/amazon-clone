@@ -9,8 +9,8 @@ export const Home = () => {
             <Header className={style.header} />
 
             <div className={style.container}>
-                <Banner className={style.banner} />
-                <Categories className={style.categories} />
+                <Banner />
+                <Categories />
                 <HomeProducts />
             </div>
         </>

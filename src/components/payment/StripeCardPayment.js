@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, memo, useMemo, useCallback } from "react";
+import { createOrder } from "services/order";
+import { cartStore } from "stores";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { createPaymentIntent as createPI } from "services/payment";
+import { createPaymentIntent } from "services/payment";
 import { LoadingButton } from "components/button";
-import { useService } from "hooks";
 import style from "./stripe-card-payment.module.css";
 
 const cardStyle = {
@@ -22,19 +23,21 @@ const cardStyle = {
     }
 };
 
-const Component = ({ items, onSucceed, className }) => {
+const Component = ({ items, orderedBy, onSucceed, className }) => {
     const stripe = useStripe();
     const elements = useElements();
     const formRef = useRef();
-    const [payment, SetPayment] = useState(null);
-    const [error, setError] = useState("");
+    const [paymentIntent, setPaymentIntent] = useState(null);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [error, setError] = useState("");
     const [disabled, setDisabled] = useState(true);
-    const [clientSecret, createPaymentIntent] = useService(createPI);
+    const [clientSecret, setClientSecret] = useState("");
 
     useMemo(() => {
         if (items?.length) {
-            createPaymentIntent(items).catch(err => setError(err.message));
+            createPaymentIntent(items)
+                .then(setClientSecret)
+                .catch(err => setError(err.message));
         }
     }, [items]);
 
@@ -48,42 +51,58 @@ const Component = ({ items, onSucceed, className }) => {
         setError(event.error ? event.error.message : "");
     };
 
-    const handleSubmit = async (event) => {
+    const processPayment = async (event) => {
         event.preventDefault();
         setIsProcessing(true);
 
-        const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: elements.getElement(CardElement)
-            }
-        });
+        try {
+            const { paymentIntent, error: stripeError } = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: { card: elements.getElement(CardElement) }
+            });
 
-        if (result.error) {
-            setError(`Payment failed! ${result.error.message}`);
-            setIsProcessing(false);
-        } else {
+            // catch Stripe errors
+            if (stripeError) {
+                setError(`Payment failed! ${stripeError.message}`);
+                setIsProcessing(false);
+                return;
+            }
+
+            const order = {
+                id: paymentIntent.id,
+                orderedBy,
+                items,
+                amount: paymentIntent.amount,
+                created: paymentIntent.created
+            };
+
+            await createOrder(order.id, order);
+            cartStore.set([]);
+
             setError("");
             setIsProcessing(false);
-            SetPayment({
-                paymentID: result.paymentIntent.id,
-                amount: result.paymentIntent.amount,
-                created: result.paymentIntent.created
+            setPaymentIntent({
+                paymentID: paymentIntent.id,
+                amount: paymentIntent.amount,
+                created: paymentIntent.created
             });
+        } catch (err) {
+            setError(err.message);
+            setIsProcessing(false);
         }
     };
 
     useEffect(() => {
-        if (payment && typeof onSucceed === "function") {
-            onSucceed(payment);
+        if (paymentIntent && typeof onSucceed === "function") {
+            onSucceed(paymentIntent);
         }
-    }, [payment, onSucceed]);
+    }, [paymentIntent, onSucceed]);
 
     return (
-        <form ref={formRef} onSubmit={handleSubmit} className={className}>
+        <form ref={formRef} onSubmit={processPayment} className={className}>
             <CardElement onChange={validate} options={cardStyle} className={style.card} />
 
             {
-                /* Show any error that happens when isProcessing the payment */
+                /* Show any error that happens when isProcessing the paymentIntent */
                 error ? <p className={style.error} role="alert">{error}</p> : null
             }
 
@@ -107,9 +126,9 @@ const Component = ({ items, onSucceed, className }) => {
                 type="button"
                 onClick={submit}
                 isLoading={isProcessing}
-                // Pay button is disabled during processing payment,
-                // invalid credit card or payment has completed successfully
-                disabled={isProcessing || disabled || payment}
+                // Pay button is disabled during processing paymentIntent,
+                // invalid credit card or paymentIntent has completed successfully
+                disabled={isProcessing || disabled || paymentIntent}
                 className={style["order-button"]}
             >
                 Place your order

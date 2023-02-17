@@ -3,8 +3,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { Select } from "components/select";
 import { useService, useDebounceCallback } from "hooks";
 import { SearchButton } from "components/button";
-import { getProductsByQuery as getProductsByQueryService } from "services/product";
-import styles from "./search-bar.module.css";
+import { getProductsByQuery as service } from "services/product";
+import style from "./search-bar.module.css";
 
 // declare list of categories here to avoid unnecessary recreation in case
 // ProductSearch gets rerendered
@@ -20,7 +20,7 @@ const categories = [
 
 const Component = ({ className }) => {
     const [searchParams] = useSearchParams();
-    const [products, getProductsByQuery] = useService(getProductsByQueryService);
+    const [products, getProductsByQuery] = useService(service);
     const [showSearchResults, setShowSearchResults] = useState(false);
     const navigate = useNavigate();
     const root = useRef(null);
@@ -29,7 +29,10 @@ const Component = ({ className }) => {
 
     const search = useCallback(
         async () => {
-            if (!titleRef.current.value) return;
+            if (!titleRef.current.value) {
+                setShowSearchResults(false);
+                return;
+            }
 
             const query = {
                 q: titleRef.current.value,
@@ -49,8 +52,9 @@ const Component = ({ className }) => {
     );
 
     const handleSearchClick = () => {
+        console.log("handleSearchClick");
         setShowSearchResults(false);
-        if (categoryRef.current.value === "All" && titleRef.current.value === "") {
+        if (categoryRef.current.value === "All" && !titleRef.current.value) {
             navigate("/");
             return;
         }
@@ -76,43 +80,37 @@ const Component = ({ className }) => {
     }, []);
 
     return (
-        <div
-            ref={root}
-            className={`${styles.root}${className ? " " + className : ""}`}
-        >
+        <div ref={root} className={`${style.root}${className ? " " + className : ""}`}>
             <Select
                 ref={categoryRef}
                 options={categories}
                 defaultValue={searchParams.get("category") || categories[0]}
                 onChange={search}
-                selectClassName={styles.select}
+                selectClassName={style.select}
             />
 
             <input
-                type="text"
                 ref={titleRef}
-                className={styles.input}
+                type="text"
                 defaultValue={searchParams.get("title") || ""}
                 onKeyUp={debounceSearch}
+                className={style.input}
             />
 
-            <SearchButton
-                className={styles["search-button"]}
-                onClick={handleSearchClick}
-            />
+            <SearchButton onClick={handleSearchClick} className={style["search-button"]} />
 
             {
                 showSearchResults &&
                 products &&
-                <ul className={styles.list}>
+                <ul className={style.list}>
                     {products.map(product =>
-                        <li key={product.id} className={styles["list-item"]}>
+                        <li key={product.id} className={style["list-item"]}>
                             <span
                                 onClick={() => {
                                     setShowSearchResults(false);
                                     navigate(`/products/${product.id}`);
                                 }}
-                                className={styles.title}
+                                className={style.title}
                                 dangerouslySetInnerHTML={
                                     { __html: product.highlights[0].snippet }
                                 }

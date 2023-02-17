@@ -1,9 +1,8 @@
 import { memo, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "hooks";
-import { userStore, cartStore } from "stores";
+import { cartStore, userStore } from "stores";
 import { StripeCardPayment } from "components";
-import { createOrder } from "services/order";
 import { getPriceSum, getQuantitySum } from "utils";
 import { Dialog } from "components/modal";
 import style from "./payment-method.module.css";
@@ -11,28 +10,15 @@ import style from "./payment-method.module.css";
 const Component = () => {
     const [user] = useStore(userStore);
     const [cart] = useStore(cartStore);
-    const [isDialogOpen, setDialogOpen] = useState(false);
+    const [isPaymentSucceeded, setIsPaymentSucceeded] = useState(false);
     const navigate = useNavigate();
 
-    const handleClose = useCallback(() => {
-        setDialogOpen(false);
+    const closeSuccessDialog = useCallback(() => {
+        setIsPaymentSucceeded(false);
         navigate("/", { replace: true });
     }, []);
 
-    const handleSucceed = useCallback(
-        ({ paymentID, amount, created }) => {
-            if (user?.email && cart.length !== 0) {
-                const order = { id: paymentID, orderedBy: user.email, items: cart, amount, created }
-                createOrder(paymentID, order)
-                    .then(() => {
-                        setDialogOpen(true);
-                        cartStore.set([]);
-                    })
-                    .catch(err => { });
-            }
-        },
-        [user?.email, cart, navigate]
-    );
+    const showSuccessDialog = useCallback(() => setIsPaymentSucceeded(true), []);
 
     return (
         <>
@@ -43,10 +29,11 @@ const Component = () => {
                         <strong>&#36;{getPriceSum(cart) / 100}</strong>
                         &#160;({getQuantitySum(cart)} items)
                     </p>
-                    <StripeCardPayment items={cart} onSucceed={handleSucceed} />
+                    <StripeCardPayment items={cart} orderedBy={user?.email} onSucceed={showSuccessDialog} />
                 </div>
             </div>
-            <Dialog title="Payment Success" isOpen={true} onClose={handleClose}>
+            
+            <Dialog type="success" title="Payment Success" isOpen={isPaymentSucceeded} onClose={closeSuccessDialog}>
                 <p className={style["primary-text"]}>
                     Thank you for shopping with us
                 </p>

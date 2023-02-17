@@ -1,19 +1,28 @@
+.carousel {
+    position: absolute;
+    z-index: -1;
+    top: 0; left: 0;
+    width: 100%;
+}
+
 .prev {
     top: 0;
-    width: 4.6%;
+    width: max(30px, 4.6%);
     height: 4.6%;
-    margin-top: 9%;
+    margin-top: max(70px, 9%);
 }
 
 .next {
     top: 0;
-    width: 4.6%;
+    width: max(30px, 4.6%);
     height: 4.6%;
-    margin-top: 9%;
+    margin-top: max(70px, 9%);
 }
 
 .slide-image {
     display: block;
     max-width: 100%;
-    object-fit: contain;
+    min-height: 300px;
+    object-fit: cover;
+    object-position: center top;
 }
