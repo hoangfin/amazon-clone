@@ -26,7 +26,8 @@ export const getProductByID = async (productID) => {
 
 export const getProductsByQuery = async (query) => {
     const result = await typesenseClient.collections("products").documents().search(query);
-    return result.found
-        ?   result.hits.map(hit => ({ ...hit.document, highlights: hit.highlights }))
-        :   [];
+    return {
+        found: result.found,
+        products: result.hits.map(hit => ({ ...hit.document, highlights: hit.highlights }))
+    };
 };
