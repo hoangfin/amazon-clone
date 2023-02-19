@@ -15,5 +15,3 @@ export const update = (id, field) => {
     }
     userStore.update(user => ({ ...user, ...field }));
 };
-
-console.log("user store loaded");

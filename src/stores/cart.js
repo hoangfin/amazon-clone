@@ -54,5 +54,3 @@ export const remove = id => {
     }
     cartStore.update(items => items.filter((_, idx) => idx !== index));
 };
-
-console.log("cart store loaded");
