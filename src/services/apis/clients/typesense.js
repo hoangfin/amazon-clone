@@ -2,13 +2,14 @@ import { Client } from "typesense";
 
 const typesenseClient = new Client({
     "nodes": [{
-        // "host": "134.209.242.202",
-        "host": "localhost",
+        "host": process.env.NODE_ENV === "production" ? "134.209.242.202" : "localhost",
         "port": "8108",
         "protocol": "http"
     }],
-    // "apiKey": "vD8ddEaESa3Vx2IgSExPOd3uZteIAKWO",
-    "apiKey": "Mx3ofRw7LrB9yE1RpEi2P3Kwv7ktzqDA",
+    "apiKey": process.env.NODE_ENV === "production"
+        ?   "vD8ddEaESa3Vx2IgSExPOd3uZteIAKWO"
+        :   "Mx3ofRw7LrB9yE1RpEi2P3Kwv7ktzqDA",
+        
     "connectionTimeoutSeconds": 5
 });
 
