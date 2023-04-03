@@ -6,42 +6,50 @@ import { ConfirmationDialog } from "components/modal";
 import { userStore } from "stores";
 import style from "./auth-nav.module.css";
 
-const Component = () => {
-    const [user] = useStore(userStore);
-    const [isOpen, setIsOpen] = useState(false);
-    const navigate = useNavigate();
-    const show = useCallback(() => setIsOpen(true), []);
-    const hide = useCallback(() => setIsOpen(false), []);
+export const AuthNav = memo(
+    () => {
+        const [user] = useStore(userStore);
+        const [isOpen, setIsOpen] = useState(false);
+        const navigate = useNavigate();
+        const show = useCallback(() => setIsOpen(true), []);
+        const hide = useCallback(() => setIsOpen(false), []);
 
-    const logOut = useCallback(async () => {
-        await signOut();
-        setIsOpen(false);
-        userStore.set(null);
-        navigate("/");
-    }, []);
+        const logOut = useCallback(async () => {
+            await signOut();
+            setIsOpen(false);
+            userStore.set(null);
+            navigate("/");
+        }, []);
 
-    return (
-        <>
-            {
-                user
-                    ?   <button className={style.welcome} onClick={show}>
-                            Hello, {user.email}
-                        </button>
-                    :   <Link to="/login" className={style.welcome}>
-                            Hello, Sign in
-                        </Link>
-            }
+        return (
+            <>
+                <div className={style.root}>
+                    <svg viewBox="0 0 24 24" className={style.icon}>
+                        <use href={`${process.env.PUBLIC_URL}/sprites.svg#account`} />
+                    </svg>
+                    <p style={{ lineHeight: "1.1" }}>
+                        <span className={style["sub-text"]}>Hello</span>
+                        {
+                            user
+                                ? <button onClick={show} className={style["primary-text"]}>
+                                    {user.email.split("@")[0].split(".")[0]}
+                                </button>
+                                : <Link to="/login" className={style["primary-text"]}>Sign in</Link>
+                        }
+                    </p>
+                </div>
 
-            <ConfirmationDialog
-                isOpen={isOpen}
-                title="Confirmation"
-                message="Are you sure to sign out?"
-                onCancel={hide}
-                onConfirm={logOut}
-            />
+                <ConfirmationDialog
+                    isOpen={isOpen}
+                    title="Confirmation"
+                    message="Are you sure to sign out?"
+                    onCancel={hide}
+                    onConfirm={logOut}
+                />
+            </>
+        )
+    },
+    () => true
+);
 
-        </>
-    )
-};
-
-export const AuthNav = memo(Component, () => true);
+AuthNav.displayName = "AuthNav";

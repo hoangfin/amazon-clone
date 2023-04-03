@@ -3,17 +3,14 @@ import { Header } from "../commons";
 import { CartItems, SubTotal } from "./components";
 import style from "./checkout.module.css";
 
-const Component = () => {
+export const Checkout = memo(() =>
+    <>
+        <Header className={style.header} />
+        <div className={style.container}>
+            <CartItems />
+            <SubTotal />
+        </div>
+    </>
+);
 
-    return (
-        <>
-            <Header className={style.header} />
-            <div className={style.container}>
-                <CartItems />
-                <SubTotal />
-            </div>
-        </>
-    );
-};
-
-export const Checkout = memo(Component);
+Checkout.displayName = "Checkout";

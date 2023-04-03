@@ -39,3 +39,5 @@ export const Banner = memo(() =>
     />,
     () => true
 );
+
+Banner.displayName = "Banner";

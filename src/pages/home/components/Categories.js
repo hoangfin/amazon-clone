@@ -70,7 +70,7 @@ const cards = [
             "/AmazonExports/Fuji/2021/September/DashboardCards",
             "/Fuji_Dash_SmartWatch_1X._SY304_CB639922137_.jpg"
         ].join(""),
-        link: "/search?category=All&title=activity+trackers+and+smartwatches",
+        link: "/search?category=All&title=trackers+and+smartwatches",
         linkLabel: "Shop now"
     },
     {

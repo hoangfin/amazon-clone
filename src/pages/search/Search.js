@@ -16,12 +16,17 @@ const Component = () => {
     const fetchProducts = useCallback(
         pageNumber => {
             const category = searchParams.get("category");
+            console.log(searchParams.get("title"));
             const query = {
                 q: searchParams.get("title") || "*",
                 query_by: "title",
                 ...(category !== "All" ? { filter_by: `categories: [${category}]` } : {}),
                 page: pageNumber,
-                per_page: 12
+                per_page: 12,
+                sort_by: "_text_match:desc",
+                num_typos: 0,
+                // split_join_tokens: "always",
+                exhaustive_search: true
             };
 
             getProductsByQuery(query);

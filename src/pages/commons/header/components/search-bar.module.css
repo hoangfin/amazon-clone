@@ -29,12 +29,18 @@
 }
 
 .list-item {
-    padding: 12px;
     border-left: 1px solid rgb(231, 231, 231);
     border-right: 1px solid rgb(231, 231, 231);
+    border-bottom: 1px solid rgb(231, 231, 231);
+    cursor: pointer;
 }
 
 .title {
+    display: block;
+    padding: 12px;
+    width: 100%;
+    text-align: left;
+    background: none;
     /* flex: 1;
     display: flex;
     align-items: center; */

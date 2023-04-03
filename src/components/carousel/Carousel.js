@@ -26,7 +26,7 @@ const Component = ({
                     }>
                     {slides.map((slide, index) =>
                         <div key={index} className={style.slide}>
-                            {slideComponent(slide)}
+                            {slideComponent(slide, index)}
                         </div>
                     )}
                 </div>

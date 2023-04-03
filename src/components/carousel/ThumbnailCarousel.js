@@ -65,15 +65,9 @@ const Component = ({
                     {slides.map((slide, index) =>
                         <div
                             key={index}
-                            className={
-                                style["thumbnail-slide"] +
-                                (index === selectedIndex ? " --selected" : "")
-                            }
+                            className={style["thumbnail-slide"] +(index === selectedIndex ? " --selected" : "")}
                         >
-                            <button
-                                className={style.thumbnail}
-                                onClick={() => handleThumbnailClick(index)}
-                            >
+                            <button className={style.thumbnail} onClick={() => handleThumbnailClick(index)}>
                                 <img src={slide} className={style["slide-image"]} />
                             </button>
                         </div>

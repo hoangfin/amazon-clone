@@ -6,8 +6,10 @@
 .container {
     position: relative;
     z-index: 1;
+    width: 100%;
     padding: 0.05px 1rem 2rem 1rem;
     background-color: rgb(234, 237, 237);
+    box-sizing: border-box;
 }
 
 .card-image {

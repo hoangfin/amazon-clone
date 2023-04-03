@@ -9,7 +9,7 @@ const typesenseClient = new Client({
     "apiKey": process.env.NODE_ENV === "production"
         ?   "vD8ddEaESa3Vx2IgSExPOd3uZteIAKWO"
         :   "Mx3ofRw7LrB9yE1RpEi2P3Kwv7ktzqDA",
-        
+
     "connectionTimeoutSeconds": 5
 });
 
@@ -27,6 +27,7 @@ export const getProductByID = async (productID) => {
 
 export const getProductsByQuery = async (query) => {
     const result = await typesenseClient.collections("products").documents().search(query);
+    console.log(result);
     return {
         found: result.found,
         products: result.hits.map(hit => ({ ...hit.document, highlights: hit.highlights }))
