@@ -1,5 +1,10 @@
 # Amazon Clone
-Build a simplified version of Amazon website from scratch using ReactJS.
+An e-commerce side project built with React.js aims to learn core concepts of this UI framework in the following topics:
+- Custom hooks
+- Data Fetching
+- State Management
+- User Authentication & Protected Routes
+
 
 ## Features
 - Full-Text Search
