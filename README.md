@@ -6,8 +6,7 @@ An e-commerce side project built with React.js aims to learn core concepts of th
 - State Management
 - User Authentication & Protected Routes
 
-Due to learning purpose, all React components & custom hooks are composed from scratch, all 
-
+Due to learning purpose, all React components & custom hooks are composed from scratch, though minimum amount of React libraries are installed.
 
 ## Features
 - Full-Text Search
