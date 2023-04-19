@@ -12,7 +12,7 @@ const createSlideComponent = (product) =>
 ;
 
 export const HomeProducts = memo(() => {
-    const [products, getProductsByQuery, isFetching] = useService(service);
+    const [result, getProductsByQuery, isFetching] = useService(service);
 
     useMemo(() => {
         getProductsByQuery({
@@ -22,12 +22,12 @@ export const HomeProducts = memo(() => {
         });
     }, []);
 
-    if (!products) return null;
+    if (!result?.products) return null;
 
     return (
         <>
             <Carousel
-                slides={products}
+                slides={result?.products}
                 slideComponent={createSlideComponent}
                 slidesPerView={6}
                 option={{ loop: true, align: "start", slidesToScroll: 6 }}

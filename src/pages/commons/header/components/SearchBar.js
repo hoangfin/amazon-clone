@@ -5,6 +5,7 @@ import { useService, useDebounceCallback } from "hooks";
 import { SearchButton } from "components/button";
 import { getProductsByQuery as service } from "services/product";
 import style from "./search-bar.module.css";
+import { List, ListItem } from "components/list";
 
 // declare list of categories here to avoid unnecessary recreation in case
 // ProductSearch gets rerendered
@@ -19,13 +20,29 @@ const categories = [
 ];
 
 const Component = ({ className }) => {
-    const [searchParams] = useSearchParams();
-    const [products, getProductsByQuery] = useService(service);
-    const [showSearchResults, setShowSearchResults] = useState(false);
-    const navigate = useNavigate();
     const root = useRef(null);
     const categoryRef = useRef(null);
     const titleRef = useRef(null);
+    const [searchParams] = useSearchParams();
+    const [result, getProductsByQuery] = useService(service);
+    const [showSearchResults, setShowSearchResults] = useState(false);
+    const navigate = useNavigate();
+    console.log(result?.products);
+
+    const getListItem = useCallback(
+        item =>
+            <ListItem key={item.id} className={style["list-item"]}>
+                <button
+                    onClick={() => {
+                        setShowSearchResults(false);
+                        navigate(`/products/${item.id}`);
+                    }}
+                    className={style.title}
+                    dangerouslySetInnerHTML={{ __html: item.highlights[0].snippet }}
+                />
+            </ListItem>,
+        []
+    );
 
     const search = useCallback(
         async () => {
@@ -38,12 +55,17 @@ const Component = ({ className }) => {
                 q: titleRef.current.value,
                 query_by: "title",
                 page: 1,
-                per_page: 12
+                sort_by: "_text_match:desc",
+                num_typos: 0,
+                per_page: 12,
+                exhaustive_search: true
             };
 
             if (categoryRef.current.value !== "All") {
                 query.filter_by = `categories:[${categoryRef.current.value}]`
             }
+
+            console.log(query);
 
             await getProductsByQuery(query);
             setShowSearchResults(true);
@@ -51,8 +73,9 @@ const Component = ({ className }) => {
         []
     );
 
+    const debounceSearch = useDebounceCallback(search, 320);
+
     const handleSearchClick = () => {
-        console.log("handleSearchClick");
         setShowSearchResults(false);
         if (categoryRef.current.value === "All" && !titleRef.current.value) {
             navigate("/");
@@ -64,8 +87,6 @@ const Component = ({ className }) => {
         titleRef.current.value && params.set("title", titleRef.current.value);
         navigate(`/search?${params.toString()}`);
     };
-
-    const debounceSearch = useDebounceCallback(search, 320);
 
     useEffect(() => {
         const handleClick = e => {
@@ -99,28 +120,11 @@ const Component = ({ className }) => {
 
             <SearchButton onClick={handleSearchClick} className={style["search-button"]} />
 
-            {
-                showSearchResults &&
-                products &&
-                <ul className={style.list}>
-                    {products.map(product =>
-                        <li key={product.id} className={style["list-item"]}>
-                            <span
-                                onClick={() => {
-                                    setShowSearchResults(false);
-                                    navigate(`/products/${product.id}`);
-                                }}
-                                className={style.title}
-                                dangerouslySetInnerHTML={
-                                    { __html: product.highlights[0].snippet }
-                                }
-                            />
-                        </li>
-                    )}
-                </ul>
-            }
+            {showSearchResults ? <List items={result?.products} itemComponent={getListItem} className={style.list} /> : null}
         </div>
     )
 };
 
 export const SearchBar = memo(Component);
+
+SearchBar.displayName = "SearchBar";

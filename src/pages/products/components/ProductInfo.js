@@ -1,17 +1,22 @@
-import { memo, useMemo, useCallback, useEffect, useState } from "react";
+import { memo, useMemo, useCallback } from "react";
 import { Card } from "components/card";
 import { ThumbnailCarousel } from "components/carousel";
-import { Modal } from "components/modal";
+import { Dialog, Modal } from "components/modal";
 import { Spinner } from "components/progress";
 import { useService } from "hooks";
-import { getProductByID as getProductByIDService } from "services/product";
+import { getProductByID as service } from "services/product";
 import { Rating } from "@mui/material";
 import { CurrencyFormat } from "components";
 import style from "./product-info.module.css";
 
-const Component = ({ productID, className }) => {
-    const [product, getProductByID, isFetching] = useService(getProductByIDService);
-    const [error, setError] = useState(null);
+const Component = ({ productID }) => {
+    const [product, getProductByID, isFetching, error, setError] = useService(service);
+
+    useMemo(() => {
+        if (productID) {
+            getProductByID(productID)
+        }
+    }, [productID]);
 
     const content = useMemo(() => {
         if (!product) return null;
@@ -46,13 +51,6 @@ const Component = ({ productID, className }) => {
 
     const handleClose = useCallback(() => setError(null), []);
 
-    useEffect(() => {
-        if (productID) {
-            getProductByID(productID)
-                .catch(err => setError(err.message));
-        }
-    }, [productID]);
-
     return (
         <div className={style.root}>
             <Card
@@ -69,15 +67,13 @@ const Component = ({ productID, className }) => {
                 contentClassName={style.content}
             />
 
-            <Modal isOpen={isFetching}>
-                <Spinner />
-            </Modal>
+            <Modal isOpen={isFetching}><Spinner /></Modal>
 
-            <Modal isOpen={error} onClose={handleClose}>
-                {error}
-            </Modal>
+            <Dialog type="error" isOpen={error} title="Error" message={error?.message} onClose={handleClose} />
         </div>
     )
 };
 
 export const ProductInfo = memo(Component);
+
+ProductInfo.displayName = "ProductInfo";

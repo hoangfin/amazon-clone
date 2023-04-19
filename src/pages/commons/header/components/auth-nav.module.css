@@ -1,11 +1,32 @@
-.welcome {
-    display: inline-block;
-    max-width: 100px;
-    font-size: 0.75rem;
-    line-height: 1.1;
+.root {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.icon {
+    display: block;
+    width: auto;
+    height: 36px;
     color: rgb(255, 255, 255);
-    /* text-align: justify; */
-    cursor: pointer;
-    word-break: break-all;
+}
+
+.text {
+    line-height: 1.1;
+    white-space: nowrap;
+    text-transform: capitalize;
+    color: rgb(255, 255, 255);
+}
+
+.primary-text {
+    composes: text;
+    font-size: 0.875rem;
+    font-weight: 700;
     background: none;
+}
+
+.sub-text {
+    composes: text;
+    display: block;
+    font-size: 0.75rem;
 }

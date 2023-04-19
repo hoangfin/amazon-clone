@@ -16,6 +16,8 @@ export const useService = (service) => {
             try {
                 const response = await service(...args);
 
+                console.log(response);
+
                 if (isRequestCancelled.current) {
                     return;
                 }

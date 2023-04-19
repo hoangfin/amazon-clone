@@ -1,9 +1,9 @@
-import { Pagination } from "components";
+import { memo, useCallback, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Pagination } from "components/pagination";
 import { Modal } from "components/modal";
 import { Spinner } from "components/progress";
 import { useService } from "hooks";
-import { memo, useCallback, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
 import { getProductsByQuery as service } from "services/product";
 import { Header } from "../commons";
 import { SearchResults } from "./components";
@@ -11,17 +11,22 @@ import style from "./search.module.css";
 
 const Component = () => {
     const [searchParams] = useSearchParams();
-    const [products, getProductsByQuery, isFetching] = useService(service);
+    const [result, getProductsByQuery, isFetching] = useService(service);
 
     const fetchProducts = useCallback(
         pageNumber => {
             const category = searchParams.get("category");
+            console.log(searchParams.get("title"));
             const query = {
                 q: searchParams.get("title") || "*",
                 query_by: "title",
                 ...(category !== "All" ? { filter_by: `categories: [${category}]` } : {}),
                 page: pageNumber,
-                per_page: 12
+                per_page: 12,
+                sort_by: "_text_match:desc",
+                num_typos: 0,
+                // split_join_tokens: "always",
+                exhaustive_search: true
             };
 
             getProductsByQuery(query);
@@ -35,8 +40,13 @@ const Component = () => {
     return (
         <>
             <Header className={style.header} />
-            <SearchResults products={products} />
-            <Pagination key={searchParams.toString()} pageCount={10} defaultPage={1} onPageChange={fetchProducts} />
+            <SearchResults products={result?.products} />
+            <Pagination
+                key={searchParams.toString()}
+                pageCount={result?.found ? Math.ceil(result.found / 12) : 1}
+                defaultPage={1}
+                onPageChange={fetchProducts}
+            />
             <Modal isOpen={isFetching}><Spinner /></Modal>
         </>
     )

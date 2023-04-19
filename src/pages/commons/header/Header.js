@@ -20,3 +20,5 @@ export const Header = memo(({ className }) =>
         </div>
     </header>
 );
+
+Header.displayName = "Header";
