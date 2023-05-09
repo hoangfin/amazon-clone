@@ -1,12 +1,11 @@
 # Amazon Clone
-An e-commerce side project built with React.js aims to learn core concepts of this library in the following topics:
+SPA e-commerce project built with React.js v18.2 covers the following topics:
 - Project Folder Structure
-- Custom Hooks
+- Reusable Components & Custom Hooks
+- Routing
 - Data Fetching
 - State Management
-- User Authentication & Protected Routes
-
-Due to learning purpose, all React components & custom hooks are composed from scratch, though minimum amount of React libraries are installed.
+- User Authentication
 
 ## Features
 - Full-Text Search
